@@ -2,119 +2,137 @@ import streamlit as st
 import pandas as pd
 
 # Page Config
-st.set_page_config(page_title="Sicily: A Love Letter", page_icon="🏺", layout="wide")
+st.set_page_config(page_title="Sicily: The Complete Insider", page_icon="🍋", layout="wide")
 
-# Custom CSS for Sicilian Patterns & Deep Colors
+# Custom CSS for the "Noto Stone" & Majolica Aesthetic
 st.markdown("""
     <style>
-    .main { background-color: #FDF5E6; }
+    /* Background set to Noto Stone / Cream */
+    .stApp {
+        background-color: #FDF5E6;
+    }
+    .main {
+        background-color: #FDF5E6;
+    }
+    /* Sicilian Header with Gradient */
     .stHeader {
         background: linear-gradient(135deg, #005DAA 0%, #D32F2F 50%, #FFD700 100%);
-        padding: 30px;
+        padding: 40px;
         border-radius: 15px;
         color: white;
         text-align: center;
-        border-bottom: 8px solid #D32F2F;
+        border-bottom: 10px solid #D32F2F;
+        margin-bottom: 25px;
     }
-    .city-card {
+    .tile-card {
         background-color: #ffffff;
         padding: 20px;
-        border-radius: 10px;
-        border: 2px solid #005DAA;
-        margin-bottom: 25px;
+        border-radius: 8px;
+        border-top: 5px solid #005DAA;
+        border-bottom: 5px solid #FFD700;
+        box-shadow: 4px 4px 15px rgba(0,0,0,0.05);
     }
     .human-touch {
         font-style: italic;
         color: #D32F2F;
-        border-left: 3px solid #FFD700;
-        padding-left: 10px;
-        margin: 10px 0;
+        font-weight: 500;
+        margin-top: 10px;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# --- THE DEEP DATA ---
+# --- THE EXPANDED DATABASE ---
 destinations = {
-    "Palermo: The Glorious Chaos": {
-        "description": "Palermo doesn't ask to be liked; it demands to be lived. It’s a city of crumbling palazzos and golden mosaics.",
-        "human_tip": "Walk through the Ballarò market at 10 AM. The 'abbanniata' (the vendors' shouting) is a centuries-old opera. If a vendor offers you a piece of cheese, take it with a smile—it's a gesture of hospitality, not a sales pitch.",
-        "beaches": ["Mondello (Go to the 'Stabilimenti' for a vintage vibe)", "Capo Gallo (Where the locals hide)"],
-        "food_spots": {"I Segreti del Chiostro": "Inside a cloister. Buy the 'Sospiri di Monaca' (Nun's Sighs). They taste like a quiet Sunday afternoon."},
-        "activity": "Puppet Theater (Opera dei Pupi). It sounds touristy, but seeing the passion of the puppeteers will make you realize how much we love our legends.",
+    "Palermo & The West": {
+        "description": "A glorious chaos of Arab-Norman history and the best street food in Europe.",
+        "human_tip": "If you go to the Ballarò market, don't just look—eat. Accept the small samples from vendors; it's how we welcome you.",
+        "beaches": ["Mondello (Go early!)", "Riserva dello Zingaro (Hidden coves)", "San Vito Lo Capo"],
+        "food_spots": "Nni Franco U'Vastiddaru (Street food), I Segreti del Chiostro (Cannoli)",
         "lat": 38.1157, "lon": 13.3615
     },
-    "Siracusa: The White Marble Dream": {
-        "description": "Ortigia (the old town) feels like an island floating in time. The light here hits the limestone and turns everything honey-colored at sunset.",
-        "human_tip": "Sit on the steps of the Cathedral (which was once a Greek temple) around 7 PM. Watch the 'Passeggiata'—grandparents in their Sunday best and teenagers flirting. It’s the heartbeat of our social life.",
-        "beaches": ["Fontane Bianche (Caribbean blue)", "Calamosche (A 20-min trek, but the silence is worth it)"],
-        "food_spots": {"Caseificio Borderi": "Go to the market and find Gaetano. He doesn't just make sandwiches; he creates edible poetry. Let him choose the ingredients for you."},
-        "activity": "The Greek Theater at sunset. Even if there isn't a play, sit on those ancient stones and realize people have been sitting exactly where you are for 2,500 years.",
+    "Catania & Mt. Etna": {
+        "description": "Built from the very lava that once threatened it, Catania is gritty, baroque, and resilient.",
+        "human_tip": "When visiting Etna, respect 'A Muntagna'. She isn't just a volcano to us; she is a living presence.",
+        "beaches": ["San Giovanni Li Cuti (Black volcanic sand)", "Aci Trezza (The Cyclops Riviera)"],
+        "food_spots": "Savia (Arancini), Osteria Antica Marina (Fish market dining)",
+        "lat": 37.5027, "lon": 15.0873
+    },
+    "Siracusa & Ortigia": {
+        "description": "White limestone buildings floating on the sea. The light here is different than anywhere else.",
+        "human_tip": "Sit in Piazza Duomo at sunset. The stone turns a warm honey color. It’s the perfect time for a 'Caffè Shakerato'.",
+        "beaches": ["Fontane Bianche", "Cala Mosche (Inside Vendicari)"],
+        "food_spots": "Caseificio Borderi (Legendary sandwiches), Cortile di Bacco",
         "lat": 37.0755, "lon": 15.2866
     },
-    "Agrigento: The Valley of Eternity": {
-        "description": "Here, the Greek temples stand guard over the sea. It’s a place that makes you feel small in the best way possible.",
-        "human_tip": "Visit the Valley of the Temples at *night*. The crowds are gone, the air is cool, and the illuminated columns against the dark sky feel like ghosts of a great civilization.",
-        "beaches": ["Scala dei Turchi (White marl cliffs—looks like a giant staircase to the sea)"],
-        "food_spots": {"Local Farmhouses": "Look for an 'Agriturismo' nearby. Order anything with 'Pistacchio di Raffadali'—it’s the green gold of this province."},
-        "activity": "Garden of Kolymbethra. It’s an ancient irrigation garden. Smell the orange blossoms; that is the true scent of Sicily.",
+    "Agrigento & The South": {
+        "description": "Home to the Valley of the Temples, where Ancient Greece still feels alive.",
+        "human_tip": "Go to the temples at night. Seeing the Concordia Temple illuminated under the stars is a spiritual experience.",
+        "beaches": ["Scala dei Turchi (White cliffs)", "Siculiana Marina"],
+        "food_spots": "Terracotta (Local ingredients), La Terrazza degli Dei",
         "lat": 37.3107, "lon": 13.5765
-    },
-    "Cefalù: The Norman Jewel": {
-        "description": "A postcard-perfect fishing village tucked under a massive rock. It’s where the mountains literally touch the Tyrrhenian sea.",
-        "human_tip": "Climb 'La Rocca' early in the morning. You’ll be sweating by the time you reach the Temple of Diana, but looking down at the red-tiled roofs and the crescent beach is the best therapy money can't buy.",
-        "beaches": ["Lungomare Cefalù (Easy access)", "Mazforno (More rugged and local)"],
-        "food_spots": {"Le Chat Noir": "Tucked in the narrow alleys. Try the Pasta a Taianu—it’s the soul of Cefalù on a plate."},
-        "activity": "A sunset swim at the old harbor (Porto Vecchio). The water is calm, and the view of the lit-up houses from the sea is magical.",
-        "lat": 38.0369, "lon": 14.0223
     }
 }
 
-# --- UI DISPLAY ---
-st.markdown('<div class="stHeader"><h1>Benvenuti in Sicilia</h1><p>A guide for my international network, from a local heart.</p></div>', unsafe_allow_html=True)
+itineraries = {
+    "3-Day Express": "Focus on either Palermo OR Catania. Don't try to do both, or you'll spend your whole trip in a car.",
+    "7-Day Loop": "Palermo → Cefalù → Taormina → Catania/Etna. A classic 'Grand Tour' of the north and east.",
+    "10-Day Deep Dive": "The full island. Start in Palermo, head west to Trapani, south to Agrigento, then east to Noto and Siracusa."
+}
 
-tab1, tab2, tab3 = st.tabs(["🏛️ The Deep Journey", "🥘 The Rituals", "🧭 Logistics of the Soul"])
+# --- UI DISPLAY ---
+st.markdown('<div class="stHeader"><h1>Sicily Insider Guide</h1><p>Curated for my International Network</p></div>', unsafe_allow_html=True)
+
+tab1, tab2, tab3, tab4 = st.tabs(["🗺️ Interactive Map", "📜 Suggested Itineraries", "🍋 Regional Secrets", "🏺 Cultural Rituals"])
 
 with tab1:
-    city = st.selectbox("Where does your heart want to go?", list(destinations.keys()))
-    data = destinations[city]
-    
-    col1, col2 = st.columns([1, 1])
-    with col1:
-        st.subheader(city)
-        st.write(data["description"])
-        st.markdown(f'<div class="human-touch">"{data["human_tip"]}"</div>', unsafe_allow_html=True)
-        
-    with col2:
-        st.markdown("### 🏺 Must-Do Activity")
-        st.success(data["activity"])
-        
-    st.divider()
-    
-    c_beach, c_food = st.columns(2)
-    with c_beach:
-        st.markdown("### 🏖️ My Favorite Beaches")
-        for b in data["beaches"]: st.write(f"• {b}")
-    with c_food:
-        st.markdown("### 🍽️ The Local Table")
-        for spot, desc in data["food_spots"].items():
-            st.write(f"**{spot}**: {desc}")
+    st.subheader("Explore the Island")
+    # Mapping logic
+    map_df = pd.DataFrame([{"lat": d["lat"], "lon": d["lon"], "name": k} for k, d in destinations.items()])
+    st.map(map_df, zoom=7)
+    st.caption("Click and scroll to see where the magic happens.")
 
 with tab2:
-    st.header("How to 'Be' Sicilian")
-    st.write("To enjoy Sicily, you must surrender to its rhythm. We don't live to work; we work to live.")
-    
-    col_a, col_b = st.columns(2)
-    with col_a:
-        st.subheader("The Art of Small Talk")
-        st.write("Don't be surprised if a shopkeeper asks where you are from and how long you are staying. This isn't an interrogation; it's curiosity. In Sicily, a stranger is just a friend we haven't fed yet.")
-    with col_b:
-        st.subheader("The 'Granita' Ritual")
-        st.write("In summer, breakfast is a lemon or almond granita with a warm brioche. Use the brioche 'tuppo' (the little hat on top) to scoop the ice. If you eat it with a spoon first, we’ll know you're a tourist!")
+    st.subheader("How long are you staying?")
+    for duration, plan in itineraries.items():
+        with st.expander(f"📅 {duration}"):
+            st.write(plan)
+            st.info("Pro Tip: Rent a small car. Our 'highways' are fine, but city streets are narrow!")
 
 with tab3:
-    st.header("Logistics with Love")
-    st.info("### 🚂 The Train vs. The Bus\nOur trains are scenic but slow. For long distances (like Palermo to Agrigento), take the 'Cuffaro' or 'SAIS' buses. They are faster, have AC, and the drivers often treat the bus like their second home.")
-    st.warning("### 💧 Water & Sun\nThe 'Scirocco' wind is a hot breath from Africa. If it blows, stay indoors between 1 PM and 4 PM. Drink more water than you think you need—and no, wine doesn't count as water (though we wish it did).")
+    region = st.selectbox("Choose a region:", list(destinations.keys()))
+    res = destinations[region]
+    
+    col1, col2 = st.columns([1.5, 1])
+    with col1:
+        st.markdown(f"### {region}")
+        st.write(res["description"])
+        st.markdown(f'<p class="human-touch">"{res["human_tip"]}"</p>', unsafe_allow_html=True)
+        
+        st.markdown("#### 🍝 Local Food Spots")
+        st.success(res["food_spots"])
+        
+    with col2:
+        st.markdown("#### 🏖️ Top Beaches")
+        for beach in res["beaches"]:
+            st.write(f"🔹 {beach}")
+
+with tab4:
+    st.subheader("Living the Sicilian Life")
+    c1, c2 = st.columns(2)
+    with c1:
+        st.markdown("""
+        **The Coffee Rules:**
+        - No Cappuccino after 11:00 AM.
+        - Drink your espresso standing up for the 'local price'.
+        - 'Caffè Freddo' is your best friend in July.
+        """)
+    with c2:
+        st.markdown("""
+        **The Riposo:**
+        - From 13:30 to 16:30, the island sleeps.
+        - Don't expect to find shops open in small towns.
+        - It's the perfect time for a long lunch or a nap.
+        """)
 
 st.divider()
-st.caption("Designed with Sicilian patterns and a touch of salt and sun.")
+st.caption("Designed with the colors of Noto and the spirit of the Mediterranean.")
