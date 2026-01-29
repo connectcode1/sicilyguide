@@ -237,4 +237,55 @@ with tab2:
         itinerary = generate_itinerary(duration, start_city, travel_style, interests)
 
         st.markdown("---")
-        st.markdown("### Your Personalized Sicily
+        st.markdown("### Your Personalized Sicily Itinerary")
+
+        for i, (region, days) in enumerate(itinerary, start=1):
+            st.markdown(f"""
+            <div class="feature-card">
+                <span class="number-badge">{i}</span>
+                <strong>{region}</strong><br>
+                {days} days • {destinations[region]['tagline']}
+                <p style="margin-top:10px;font-size:0.95em;">
+                    Highlights: {', '.join(list(destinations[region]['experiences'].keys())[:3])}
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+
+        st.success("This itinerary was generated instantly based on your preferences.")
+
+# =========================================================
+# TAB 3 — INSIDER TIPS (UNCHANGED)
+# =========================================================
+with tab3:
+    st.markdown("<div class='section-header'><h2>Insider Tips</h2></div>", unsafe_allow_html=True)
+    st.markdown("""
+    - Rent a car outside major cities  
+    - Eat where menus aren’t translated  
+    - Visit historic towns early morning or golden hour  
+    """)
+
+# =========================================================
+# TAB 4 — COMMUNITY (UNCHANGED PLACEHOLDER)
+# =========================================================
+with tab4:
+    st.markdown("<div class='section-header'><h2>Community</h2></div>", unsafe_allow_html=True)
+    st.info("Community features coming soon.")
+
+# =========================================================
+# MAP (UNCHANGED)
+# =========================================================
+st.markdown("<div class='section-header'><h2>Sicily at a Glance</h2></div>", unsafe_allow_html=True)
+
+st.map(pd.DataFrame([
+    {"lat": d["lat"], "lon": d["lon"]} for d in destinations.values()
+]))
+
+# =========================================================
+# FOOTER
+# =========================================================
+st.markdown("""
+<hr>
+<p style="text-align:center;font-size:0.9em;color:#6A6A6A;">
+© 2026 Sicily Insider • Curated with local knowledge
+</p>
+""", unsafe_allow_html=True)
