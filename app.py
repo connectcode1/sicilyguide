@@ -5,96 +5,324 @@ import json
 
 # Page Config
 st.set_page_config(
-    page_title="Sicily Insider - Your Personal Guide", 
-    page_icon="🏺", 
+    page_title="Sicilia Autentica - Your Insider's Journey", 
+    page_icon="🌅", 
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# --- CUSTOM CSS: ENHANCED MAJOLICA THEME ---
+# --- SICILIAN DREAMY CSS THEME ---
 st.markdown("""
     <style>
-    /* Main Background */
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500&display=swap');
+    
+    /* Main Background - Mediterranean Sunset Gradient */
     .stApp {
-        background: linear-gradient(135deg, #002B5B 0%, #003D73 100%);
-        color: #FDF5E6;
+        background: linear-gradient(180deg, 
+            #0a1828 0%,
+            #1e3a5f 20%,
+            #2d5f8d 40%,
+            #f4a261 80%,
+            #e76f51 100%);
+        background-attachment: fixed;
+        color: #fefae0;
+        font-family: 'Montserrat', sans-serif;
     }
     
-    /* High-Contrast Content Cards */
+    /* Elegant Content Cards with Sicilian Ceramic Pattern */
     .content-card {
-        background: linear-gradient(145deg, #FDF5E6 0%, #F5EBD9 100%);
-        color: #1A1A1A;
-        padding: 30px;
-        border-radius: 20px;
-        border-left: 12px solid #D32F2F;
-        margin-bottom: 25px;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-    }
-    
-    /* Info Cards */
-    .info-card {
-        background-color: rgba(255, 215, 0, 0.1);
-        border: 2px solid #FFD700;
-        border-radius: 15px;
-        padding: 20px;
-        margin: 15px 0;
-    }
-    
-    /* Headers */
-    h1 { color: #FFD700 !important; font-family: 'Georgia', serif; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-    h2 { color: #FFD700 !important; font-family: 'Georgia', serif; }
-    h3 { color: #FFA500 !important; font-family: 'Georgia', serif; }
-    
-    /* Sidebar */
-    section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #001F3F 0%, #003D73 100%);
-        border-right: 3px solid #FFD700;
-    }
-    
-    /* Buttons */
-    .stButton>button {
-        background: linear-gradient(135deg, #D32F2F 0%, #B71C1C 100%);
-        color: white;
+        background: linear-gradient(135deg, #fefae0 0%, #faf3dd 100%);
+        color: #1a1a1a;
+        padding: 40px;
         border-radius: 25px;
-        border: 3px solid #FFD700;
-        font-weight: bold;
-        padding: 12px 30px;
-        transition: all 0.3s;
+        border: 3px solid #e9c46a;
+        margin: 25px 0;
+        box-shadow: 
+            0 20px 60px rgba(0,0,0,0.3),
+            inset 0 1px 0 rgba(255,255,255,0.8);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .content-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 8px;
+        background: repeating-linear-gradient(
+            90deg,
+            #e76f51 0px,
+            #e76f51 20px,
+            #f4a261 20px,
+            #f4a261 40px,
+            #2a9d8f 40px,
+            #2a9d8f 60px
+        );
+    }
+    
+    /* Dreamy Info Cards */
+    .info-card {
+        background: rgba(42, 157, 143, 0.15);
+        backdrop-filter: blur(10px);
+        border: 2px solid #2a9d8f;
+        border-radius: 20px;
+        padding: 25px;
+        margin: 20px 0;
+        box-shadow: 0 8px 32px rgba(42, 157, 143, 0.2);
+    }
+    
+    /* Headers - Elegant Serif */
+    h1 {
+        font-family: 'Cormorant Garamond', serif !important;
+        color: #fefae0 !important;
+        font-weight: 700 !important;
+        font-size: 4em !important;
+        text-shadow: 
+            2px 2px 4px rgba(0,0,0,0.6),
+            0 0 20px rgba(233, 196, 106, 0.4);
+        margin-bottom: 10px !important;
+        letter-spacing: 2px;
+    }
+    
+    h2 {
+        font-family: 'Cormorant Garamond', serif !important;
+        color: #e9c46a !important;
+        font-weight: 600 !important;
+        font-size: 2.5em !important;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        margin-top: 30px !important;
+    }
+    
+    h3 {
+        font-family: 'Cormorant Garamond', serif !important;
+        color: #f4a261 !important;
+        font-weight: 600 !important;
+        font-size: 1.8em !important;
+    }
+    
+    /* Sidebar - Terracotta Elegance */
+    section[data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #1e3a5f 0%, #264653 100%);
+        border-right: 5px solid #e9c46a;
+        padding: 20px;
+    }
+    
+    section[data-testid="stSidebar"] h1,
+    section[data-testid="stSidebar"] h2,
+    section[data-testid="stSidebar"] h3 {
+        color: #e9c46a !important;
+    }
+    
+    section[data-testid="stSidebar"] p {
+        color: #fefae0;
+    }
+    
+    /* Elegant Buttons */
+    .stButton>button {
+        background: linear-gradient(135deg, #e76f51 0%, #f4a261 100%);
+        color: #fefae0;
+        border-radius: 30px;
+        border: 3px solid #e9c46a;
+        font-weight: 600;
+        padding: 15px 35px;
+        font-size: 1.1em;
+        font-family: 'Montserrat', sans-serif;
+        letter-spacing: 1px;
+        transition: all 0.4s ease;
+        box-shadow: 0 5px 15px rgba(231, 111, 81, 0.4);
     }
     
     .stButton>button:hover {
-        transform: scale(1.05);
-        box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4);
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 8px 25px rgba(231, 111, 81, 0.6);
+        background: linear-gradient(135deg, #f4a261 0%, #e9c46a 100%);
+        border-color: #fefae0;
     }
     
-    /* Expander */
-    .streamlit-expanderHeader {
-        background-color: rgba(255, 215, 0, 0.2);
-        border-radius: 10px;
-        font-weight: bold;
-    }
-    
-    /* Metric containers */
-    [data-testid="stMetricValue"] {
-        color: #FFD700;
-        font-size: 2em;
-    }
-    
-    /* Tabs */
+    /* Tabs - Mediterranean Wave Design */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 8px;
+        gap: 15px;
+        background: rgba(42, 157, 143, 0.1);
+        padding: 15px;
+        border-radius: 20px;
+        backdrop-filter: blur(5px);
     }
     
     .stTabs [data-baseweb="tab"] {
-        background-color: rgba(255, 215, 0, 0.1);
-        border-radius: 10px 10px 0 0;
-        color: #FFD700;
-        font-weight: bold;
+        background: rgba(254, 250, 224, 0.1);
+        border-radius: 15px;
+        color: #fefae0;
+        font-weight: 600;
+        padding: 15px 30px;
+        font-family: 'Montserrat', sans-serif;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+    }
+    
+    .stTabs [data-baseweb="tab"]:hover {
+        background: rgba(233, 196, 106, 0.2);
+        border-color: #e9c46a;
     }
     
     .stTabs [aria-selected="true"] {
-        background-color: #FFD700;
-        color: #002B5B;
+        background: linear-gradient(135deg, #e9c46a 0%, #f4a261 100%);
+        color: #1a1a1a;
+        border-color: #fefae0;
+        box-shadow: 0 5px 20px rgba(233, 196, 106, 0.4);
+    }
+    
+    /* Expanders - Ceramic Tile Inspired */
+    .streamlit-expanderHeader {
+        background: linear-gradient(135deg, rgba(42, 157, 143, 0.3) 0%, rgba(42, 157, 143, 0.1) 100%);
+        border-radius: 15px;
+        font-weight: 600;
+        border: 2px solid #2a9d8f;
+        color: #fefae0 !important;
+        padding: 15px !important;
+        font-size: 1.1em;
+    }
+    
+    .streamlit-expanderHeader:hover {
+        background: rgba(42, 157, 143, 0.4);
+        border-color: #e9c46a;
+    }
+    
+    /* Metrics - Elegant Display */
+    [data-testid="stMetricValue"] {
+        color: #e9c46a;
+        font-size: 2.5em;
+        font-family: 'Cormorant Garamond', serif;
+        font-weight: 700;
+    }
+    
+    [data-testid="stMetricLabel"] {
+        color: #fefae0;
+        font-weight: 500;
+        font-size: 1.1em;
+    }
+    
+    /* Input Fields */
+    .stTextInput>div>div>input,
+    .stTextArea>div>div>textarea,
+    .stSelectbox>div>div>select {
+        background: rgba(254, 250, 224, 0.9);
+        border: 2px solid #e9c46a;
+        border-radius: 15px;
+        color: #1a1a1a;
+        font-family: 'Montserrat', sans-serif;
+        padding: 12px;
+    }
+    
+    /* Form Submit Button Special */
+    .stForm button[type="submit"] {
+        background: linear-gradient(135deg, #2a9d8f 0%, #264653 100%);
+        border-color: #e9c46a;
+    }
+    
+    .stForm button[type="submit"]:hover {
+        background: linear-gradient(135deg, #e76f51 0%, #f4a261 100%);
+    }
+    
+    /* Dividers */
+    hr {
+        border: none;
+        height: 3px;
+        background: linear-gradient(90deg, 
+            transparent 0%, 
+            #e9c46a 20%, 
+            #f4a261 50%, 
+            #e9c46a 80%, 
+            transparent 100%);
+        margin: 40px 0;
+    }
+    
+    /* Success/Info/Warning Messages */
+    .stSuccess {
+        background: rgba(42, 157, 143, 0.2);
+        border: 2px solid #2a9d8f;
+        border-radius: 15px;
+        color: #fefae0;
+    }
+    
+    .stInfo {
+        background: rgba(233, 196, 106, 0.2);
+        border: 2px solid #e9c46a;
+        border-radius: 15px;
+        color: #fefae0;
+    }
+    
+    .stWarning {
+        background: rgba(244, 162, 97, 0.2);
+        border: 2px solid #f4a261;
+        border-radius: 15px;
+        color: #fefae0;
+    }
+    
+    /* Bookmarks Style */
+    .bookmark-item {
+        background: rgba(42, 157, 143, 0.15);
+        border-left: 5px solid #e9c46a;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 10px;
+        backdrop-filter: blur(5px);
+    }
+    
+    /* Review Card */
+    .review-card {
+        background: linear-gradient(135deg, rgba(254, 250, 224, 0.1) 0%, rgba(233, 196, 106, 0.1) 100%);
+        border: 2px solid #e9c46a;
+        border-radius: 20px;
+        padding: 25px;
+        margin: 15px 0;
+        backdrop-filter: blur(10px);
+    }
+    
+    /* Footer */
+    .footer-link {
+        color: #e9c46a;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .footer-link:hover {
+        color: #fefae0;
+        text-shadow: 0 0 10px rgba(233, 196, 106, 0.6);
+    }
+    
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+        width: 12px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: rgba(26, 58, 95, 0.5);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #e9c46a 0%, #f4a261 100%);
+        border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #f4a261 0%, #e76f51 100%);
+    }
+    
+    /* Rating Stars */
+    .star-rating {
+        color: #e9c46a;
+        font-size: 1.5em;
+        letter-spacing: 3px;
+    }
+    
+    /* Decorative Elements */
+    .decorative-icon {
+        font-size: 3em;
+        color: #e9c46a;
+        text-shadow: 0 0 20px rgba(233, 196, 106, 0.4);
     }
     </style>
     """, unsafe_allow_html=True)
@@ -105,7 +333,11 @@ if 'saved_trips' not in st.session_state:
 if 'feedback_data' not in st.session_state:
     st.session_state.feedback_data = []
 if 'bookmarks' not in st.session_state:
-    st.session_state.bookmarks = set()
+    st.session_state.bookmarks = []
+if 'reviews' not in st.session_state:
+    st.session_state.reviews = []
+if 'user_name' not in st.session_state:
+    st.session_state.user_name = "Traveler"
 
 # --- COMPREHENSIVE DATA ---
 destinations = {
@@ -154,12 +386,6 @@ destinations = {
                 "price": "€2.50 each",
                 "insider": "Try ricotta with pistachio cream—it's life-changing"
             },
-            "Sfincione": {
-                "what": "Sicilian thick-crust pizza with tomato, onions, anchovies",
-                "where": "Any bakery in the historic center",
-                "price": "€2-3 per slice",
-                "insider": "Best eaten at room temperature—the flavors develop"
-            },
             "Pasta con le Sarde": {
                 "what": "Traditional pasta with sardines, wild fennel, pine nuts, raisins",
                 "where": "Trattoria Ai Cascinari",
@@ -186,7 +412,8 @@ destinations = {
         "lat": 38.1157, 
         "lon": 13.3615,
         "best_months": "April-June, September-October",
-        "days_needed": "3-4 days"
+        "days_needed": "3-4 days",
+        "emoji": "🏛️"
     },
     
     "Siracusa & The Baroque Southeast": {
@@ -218,12 +445,6 @@ destinations = {
                 "best_for": "Birdwatching, hiking, wild beaches",
                 "how_to_get": "Bus to Noto, then taxi to entrances",
                 "insider_tip": "San Lorenzo beach is quieter than Calamosche"
-            },
-            "Plemmirio": {
-                "description": "Marine protected area with incredible snorkeling",
-                "best_for": "Snorkeling, diving, rocky coast",
-                "how_to_get": "15 min from Syracuse by car/scooter",
-                "insider_tip": "Rent a kayak to explore the sea caves"
             }
         },
         
@@ -245,12 +466,6 @@ destinations = {
                 "where": "Antica Dolceria Bonajuto",
                 "price": "€5-8 per bar",
                 "insider": "Try the chili pepper variety—it's traditional"
-            },
-            "Scacce Ragusane": {
-                "what": "Folded pastry with ricotta, tomato, or eggplant",
-                "where": "Ragusa Ibla bakeries",
-                "price": "€3-5",
-                "insider": "Eat them warm from the oven"
             }
         },
         
@@ -272,7 +487,8 @@ destinations = {
         "lat": 37.0755, 
         "lon": 15.2866,
         "best_months": "May-June, September",
-        "days_needed": "4-5 days"
+        "days_needed": "4-5 days",
+        "emoji": "⛪"
     },
     
     "Etna & The East Coast": {
@@ -298,18 +514,6 @@ destinations = {
                 "best_for": "Sunset, local atmosphere, seafood",
                 "how_to_get": "Walking distance from Catania center",
                 "insider_tip": "Have aperitivo at the beach bars at 7 PM"
-            },
-            "Aci Trezza": {
-                "description": "Fishing village with legendary Cyclops rocks",
-                "best_for": "Swimming, Sicilian culture, seafood",
-                "how_to_get": "Bus from Catania (20 min)",
-                "insider_tip": "The black rocks are volcanic—wear water shoes"
-            },
-            "Letojanni": {
-                "description": "Quieter alternative to Taormina's beaches",
-                "best_for": "Relaxation, local restaurants",
-                "how_to_get": "Train from Taormina (5 min)",
-                "insider_tip": "Better value and less crowded than Taormina beaches"
             }
         },
         
@@ -331,18 +535,6 @@ destinations = {
                 "where": "Trattoria de Fiore, Catania",
                 "price": "€10-12",
                 "insider": "Named after Bellini's opera—both are Catanese masterpieces"
-            },
-            "Pistacchio di Bronte": {
-                "what": "Green gold from Etna's slopes",
-                "where": "Pasticceria Russo, Bronte",
-                "price": "€15-25 per kg",
-                "insider": "Harvest is Sept-Oct, buy DOP certified"
-            },
-            "Raw Seafood in Catania": {
-                "what": "Sea urchin, oysters, prawns at fish market",
-                "where": "Mercato del Pesce, Catania",
-                "price": "€10-20",
-                "insider": "Go at 10 AM when the market is closing—fresher and cheaper"
             }
         },
         
@@ -350,1510 +542,1128 @@ destinations = {
             "🌋 Mount Etna - Guided tour to summit craters (€65)",
             "🎭 Taormina Ancient Theater - Greek theater with Etna backdrop",
             "🐘 Catania Fish Market - Sensory overload, arrive early",
-            "🏛️ Catania Baroque Center - UNESCO site, rebuilt after 1693",
-            "🚂 Circumetnea Train - Vintage train around Etna"
+            "🏛️ Catania Baroque Center - UNESCO site, rebuilt after 1693"
         ],
         
         "hidden_gems": [
             "🍷 Etna Wine Route - Dozens of wineries to visit",
             "🏰 Castello di Aci - Norman castle over the sea",
             "🎵 Bellini Museum in Catania - Opera composer's birthplace",
-            "🌳 Gole Alcantara - Lava gorge with river (bring wetsuit!)",
-            "🍯 Zafferana Etnea - Honey village, Sunday market"
+            "🌳 Gole Alcantara - Lava gorge with river"
         ],
         
         "lat": 37.5027, 
         "lon": 15.0873,
         "best_months": "April-June, September-October",
-        "days_needed": "3-4 days"
-    },
-    
-    "Agrigento & The Southern Coast": {
-        "tagline": "Valley of the Temples - Greek Heritage Preserved",
-        "description": """The south coast is Sicily's most serene face: endless wheat fields turning gold in May, 
-        white limestone cliffs, and the most spectacular Greek ruins outside Greece itself. Agrigento's Valley of the 
-        Temples stands as a testament to the island's ancient glory, while the nearby Scala dei Turchi offers 
-        blindingly white marl cliffs descending into turquoise waters.""",
-        
-        "human_tip": """🏛️ **Temple Timing**: Visit the Valley of the Temples at 7 PM in summer. Get the evening 
-        ticket (€10) and watch the sunset behind the Temple of Concordia. As the golden hour light hits the honey-colored 
-        stone, you'll understand why the Greeks called this place sacred. Stay for the night illumination.""",
-        
-        "beaches": {
-            "Scala dei Turchi": {
-                "description": "Brilliant white marl cliff formations, iconic Instagram spot",
-                "best_for": "Photography, sunset, unique landscapes",
-                "how_to_get": "15 min from Agrigento, parking available",
-                "insider_tip": "Officially closed but accessible. Best at sunset."
-            },
-            "Siculiana Marina": {
-                "description": "Long sandy beach with nature reserve",
-                "best_for": "Families, long walks, local atmosphere",
-                "how_to_get": "20 min from Agrigento by car",
-                "insider_tip": "Less crowded than Scala dei Turchi, better for swimming"
-            },
-            "Eraclea Minoa": {
-                "description": "Beach with Greek ruins overlooking the sea",
-                "best_for": "History + beach combo, dunes",
-                "how_to_get": "30 min from Agrigento toward Sciacca",
-                "insider_tip": "Visit the small archaeological site first"
-            }
-        },
-        
-        "food": {
-            "Couscous di Pesce": {
-                "what": "Arab-influenced fish couscous",
-                "where": "Restaurants in Sciacca",
-                "price": "€15-20",
-                "insider": "Sciacca hosts the Couscous Festival in September"
-            },
-            "Girgentana Cheese": {
-                "what": "Cheese from native spiral-horned goats",
-                "where": "Local markets and cheese shops",
-                "price": "€20-25 per kg",
-                "insider": "Rare breed, unique tangy flavor"
-            }
-        },
-        
-        "must_see": [
-            "🏛️ Valley of the Temples - UNESCO site, allow 3-4 hours",
-            "🏛️ Temple of Concordia - Best-preserved Doric temple",
-            "🏛️ Kolymbetra Garden - Ancient garden in the valley",
-            "🏰 Scala dei Turchi - White cliffs (limited access)"
-        ],
-        
-        "hidden_gems": [
-            "🎨 Museo Archeologico - Amazing collection before temples",
-            "🏛️ Villa Romana del Casale - Mosaics near Piazza Armerina",
-            "🌳 Riserva Naturale Torre Salsa - Pristine beach reserve"
-        ],
-        
-        "lat": 37.3108,
-        "lon": 13.5765,
-        "best_months": "April-June, September",
-        "days_needed": "2-3 days"
-    },
-    
-    "Trapani & The Islands": {
-        "tagline": "Salt, Wind, and Ancient Islands",
-        "description": """The far west of Sicily dances to a different rhythm: North African influences in the 
-        couscous and tuna traditions, salt pans that turn pink at sunset, windmills that have ground sea salt for 
-        centuries. From here, ferries depart to the Egadi Islands (Favignana, Levanzo, Marettimo) and the remote 
-        volcanic speck of Pantelleria.""",
-        
-        "human_tip": """⛵ **Island Secret**: Skip crowded Favignana in August. Instead, take the ferry to Marettimo 
-        (90 min). No cars, no beaches, just vertical cliffs, crystalline water, and spectacular cave-diving. It's Sicily's 
-        last wild edge. Stay at Pensione Il Veliero—the owner knows every hidden cove.""",
-        
-        "beaches": {
-            "Favignana - Cala Rossa": {
-                "description": "Former tuff quarry, incredible blue water",
-                "best_for": "Snorkeling, cliff jumping, photos",
-                "how_to_get": "Ferry from Trapani (30 min) + bike rental",
-                "insider_tip": "Rent a bike, not a scooter—the island is small"
-            },
-            "San Vito Lo Capo": {
-                "description": "Wide sandy beach, crystal waters",
-                "best_for": "Beach relaxation, couscous fest",
-                "how_to_get": "Bus from Trapani or Palermo",
-                "insider_tip": "Stay for the sunset behind Monte Monaco"
-            }
-        },
-        
-        "food": {
-            "Couscous di Pesce": {
-                "what": "The real deal, North African tradition",
-                "where": "Cantina Siciliana, San Vito Lo Capo",
-                "price": "€18-22",
-                "insider": "September Couscous Fest brings international chefs"
-            },
-            "Tuna Bottarga": {
-                "what": "Dried tuna roe, salty delicacy",
-                "where": "Favignana specialty shops",
-                "price": "€35-50 per 100g",
-                "insider": "Grate over pasta with olive oil and lemon"
-            },
-            "Trapani Sea Salt": {
-                "what": "Hand-harvested sea salt",
-                "where": "Salt museums and shops",
-                "price": "€5-10",
-                "insider": "Visit the windmills at sunset near Marsala"
-            }
-        },
-        
-        "must_see": [
-            "⛵ Egadi Islands - Favignana, Levanzo, Marettimo",
-            "🧂 Salt Pans of Trapani - Sunset photos with windmills",
-            "🏰 Erice - Medieval hilltop town in the clouds",
-            "🍷 Marsala - Wine cellars and historic center"
-        ],
-        
-        "hidden_gems": [
-            "🎨 Museo Pepoli Trapani - Coral art and maiolica",
-            "⛪ Santuario di Custonaci - Pilgrimage site with views",
-            "🏊 Laghetti di Marineo - Natural pools near Erice"
-        ],
-        
-        "lat": 38.0176,
-        "lon": 12.5365,
-        "best_months": "May-June, September",
-        "days_needed": "3-4 days"
+        "days_needed": "3-4 days",
+        "emoji": "🌋"
     }
 }
 
-# --- PRACTICAL INFORMATION DATABASE ---
-practical_info = {
-    "Getting Around": {
-        "Car Rental": {
-            "pros": "Freedom to explore, reach remote beaches, wine regions",
-            "cons": "Palermo/Catania traffic, narrow streets, parking challenges",
-            "recommendation": "Essential for countryside, avoid in city centers",
-            "insider": "Book automatic transmission in advance—manuals are standard",
-            "cost": "€30-50/day"
-        },
-        "Trains": {
-            "pros": "Coastal routes scenic, connects major cities",
-            "cons": "Limited inland, slow on some routes",
-            "recommendation": "Great for Catania-Taormina-Syracuse",
-            "insider": "Circumetnea train around Etna is a day trip itself",
-            "cost": "€8-15 between major cities"
-        },
-        "Buses": {
-            "pros": "Reaches everywhere, affordable",
-            "cons": "Schedules unreliable, crowded in summer",
-            "recommendation": "Good for specific routes like Palermo-Agrigento",
-            "insider": "Buy tickets at tobacco shops (tabacchi), not on board",
-            "cost": "€5-20 depending on distance"
-        },
-        "Scooter": {
-            "pros": "Perfect for small towns, beaches, parking anywhere",
-            "cons": "Hot in summer, limited range",
-            "recommendation": "Ideal for islands (Favignana) and coastal areas",
-            "insider": "Always wear helmet—police are strict now",
-            "cost": "€20-35/day"
-        }
-    },
-    
-    "When to Visit": {
-        "Spring (April-June)": {
-            "weather": "15-28°C, warm days, cool evenings",
-            "crowds": "Moderate, Easter week is busy",
-            "highlights": "Wildflowers, almond blossoms, perfect hiking",
-            "insider": "May is ideal—warm enough for beaches, not too hot for cities"
-        },
-        "Summer (July-August)": {
-            "weather": "28-38°C, very hot, crowded",
-            "crowds": "Peak season, book everything in advance",
-            "highlights": "Beach life, festivals, nightlife",
-            "insider": "August is Italian vacation—everywhere is packed. Choose June or September."
-        },
-        "Fall (September-October)": {
-            "weather": "20-28°C, still warm sea",
-            "crowds": "Lower, good value",
-            "highlights": "Grape harvest, wine festivals, golden light",
-            "insider": "September is the sweet spot—warm water, fewer tourists"
-        },
-        "Winter (November-March)": {
-            "weather": "10-18°C, rainy periods",
-            "crowds": "Minimal, many places closed",
-            "highlights": "Authentic experience, almond blossoms in Feb",
-            "insider": "Good for culture and food, not beaches. Etna skiing possible!"
-        }
-    },
-    
-    "Money & Costs": {
-        "Daily Budget": {
-            "Budget": "€50-70/day (hostels, street food, buses)",
-            "Mid-range": "€100-150/day (B&Bs, trattorias, some car rental)",
-            "Luxury": "€250+/day (hotels, fine dining, private tours)",
-            "insider": "Lunch 'menu fisso' at trattorias is €12-18 and excellent value"
-        },
-        "Tipping": {
-            "Restaurants": "Service often included; round up or leave €5-10",
-            "Bars": "Not expected for coffee (€1-1.50), leave €1 for table service",
-            "Taxis": "Round up to nearest €5",
-            "insider": "Coperto (cover charge) €1-3 is normal, not a tip"
-        },
-        "ATMs & Cards": {
-            "info": "ATMs everywhere in cities, scarce in countryside",
-            "insider": "Carry cash for small towns, markets, beaches. Many places still cash-only."
-        }
-    },
-    
-    "Language": {
-        "Reality Check": {
-            "English": "Spoken in tourist areas, hotels, young people",
-            "Italian": "Essential outside tourist zones",
-            "Sicilian": "Older locals often prefer it to Italian",
-            "insider": "Learn basic Italian phrases—'per favore', 'grazie', 'scusi'. Sicilians appreciate effort."
-        },
-        "Key Phrases": {
-            "Quanto costa?": "How much?",
-            "Dov'è...?": "Where is...?",
-            "Posso avere il conto?": "Can I have the bill?",
-            "Che cosa consiglia?": "What do you recommend?",
-            "Senza glutine": "Gluten-free (important for celiacs!)"
-        }
-    }
-}
+# --- ELEGANT HEADER ---
+st.markdown("""
+    <div style='text-align: center; padding: 60px 20px 40px 20px;'>
+        <div class='decorative-icon'>🌅</div>
+        <h1 style='margin: 20px 0 10px 0;'>SICILIA AUTENTICA</h1>
+        <p style='font-size: 1.5em; color: #e9c46a; font-family: "Cormorant Garamond", serif; font-style: italic; margin: 10px 0;'>
+            Un Viaggio nell'Anima dell'Isola
+        </p>
+        <p style='font-size: 1.1em; color: #fefae0; font-weight: 300; margin: 10px 0;'>
+            Your Personal Insider's Guide to the Heart of the Mediterranean
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
-# --- HEADER SECTION ---
-col1, col2, col3 = st.columns([2, 3, 2])
-with col2:
-    st.title("🏺 SICILIA")
-    st.markdown("### *Un Viaggio nell'Anima* — A Journey into the Soul")
-    st.markdown("#### Your Comprehensive Insider's Guide")
+st.markdown("<hr>", unsafe_allow_html=True)
 
-st.divider()
-
-# --- SIDEBAR ---
+# --- ELEGANT SIDEBAR ---
 with st.sidebar:
-    st.markdown("## 🧭 Navigation Hub")
-    st.markdown("---")
+    st.markdown("""
+        <div style='text-align: center; padding: 20px 0;'>
+            <div class='decorative-icon' style='font-size: 2.5em;'>🏺</div>
+            <h2 style='margin: 15px 0;'>Navigation</h2>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    st.markdown("<hr style='margin: 20px 0;'>", unsafe_allow_html=True)
+    
+    # User Greeting
+    user_greeting = st.text_input("👤 Your name", value=st.session_state.user_name, key="user_name_input")
+    if user_greeting != st.session_state.user_name:
+        st.session_state.user_name = user_greeting
+        st.rerun()
+    
+    st.markdown(f"""
+        <p style='text-align: center; font-size: 1.2em; color: #e9c46a; margin: 15px 0;'>
+            Benvenuto, <strong>{st.session_state.user_name}</strong>! 🌊
+        </p>
+        """, unsafe_allow_html=True)
+    
+    st.markdown("<hr style='margin: 20px 0;'>", unsafe_allow_html=True)
     
     # Quick Stats
-    st.metric("📍 Regions Covered", len(destinations))
-    st.metric("🏖️ Beaches Listed", sum(len(d['beaches']) for d in destinations.values()))
-    st.metric("🍴 Food Spots", sum(len(d['food']) for d in destinations.values()))
+    st.markdown("### 📊 Your Journey Stats")
     
-    st.markdown("---")
+    col1, col2 = st.columns(2)
+    with col1:
+        st.metric("📌 Saved", len(st.session_state.bookmarks))
+    with col2:
+        st.metric("🗺️ Trips", len(st.session_state.saved_trips))
     
-    # Quick Links
-    st.markdown("### 🔗 Quick Actions")
-    if st.button("📥 Download Full Guide (PDF)", use_container_width=True):
-        st.info("📧 Enter your email to receive the comprehensive 50-page PDF guide")
+    st.metric("⭐ Reviews", len(st.session_state.reviews))
     
-    if st.button("🗺️ View Interactive Map", use_container_width=True):
-        st.info("Jump to Map Section ↓")
+    st.markdown("<hr style='margin: 20px 0;'>", unsafe_allow_html=True)
     
-    st.markdown("---")
+    # Quick Actions
+    st.markdown("### ⚡ Quick Actions")
     
-    # Saved Items
-    st.markdown("### 📌 Your Bookmarks")
+    if st.button("🗺️ Jump to Map", use_container_width=True):
+        st.info("Scroll down to see the interactive map!")
+    
+    if st.button("💾 My Dashboard", use_container_width=True):
+        st.info("Navigate to 'My Dashboard' tab above!")
+    
+    st.markdown("<hr style='margin: 20px 0;'>", unsafe_allow_html=True)
+    
+    # Recent Bookmarks
+    st.markdown("### 📌 Recent Bookmarks")
     if st.session_state.bookmarks:
-        for bookmark in st.session_state.bookmarks:
-            st.text(f"✓ {bookmark}")
+        recent = list(st.session_state.bookmarks)[-3:]
+        for item in recent:
+            st.markdown(f"<div class='bookmark-item'>✓ {item}</div>", unsafe_allow_html=True)
     else:
-        st.text("No bookmarks yet")
-    
-    st.markdown("---")
-    st.markdown("### 🌡️ Live Weather")
-    if st.button("Get Sicily Weather", use_container_width=True):
-        st.info("Connect to weather API (premium feature)")
+        st.markdown("<p style='color: #e9c46a; font-style: italic;'>No bookmarks yet</p>", unsafe_allow_html=True)
 
-# --- MAIN NAVIGATION TABS ---
-tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
-    "🗺️ Regional Deep Dives", 
-    "🧳 Plan Your Trip", 
-    "📋 Practical Info",
-    "🍷 Experiences",
-    "❓ Get Info Now",
-    "💬 Community",
+# --- MAIN CONTENT TABS ---
+tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
+    "🏛️ Explore Regions",
+    "🧳 Plan Your Trip",
+    "💬 Community & Reviews",
+    "📋 Practical Guide",
+    "❓ Ask & Discover",
     "📊 My Dashboard"
 ])
 
 # ============================================
-# TAB 1: REGIONAL DEEP DIVES
+# TAB 1: EXPLORE REGIONS
 # ============================================
 with tab1:
-    st.header("🏛️ Explore Sicily by Region")
-    st.markdown("*Select a region to unlock detailed insider information*")
+    st.markdown("""
+        <div style='text-align: center; padding: 30px 0;'>
+            <h2>Discover Sicily's Magic</h2>
+            <p style='font-size: 1.2em; color: #e9c46a;'>Choose a region to begin your journey</p>
+        </div>
+        """, unsafe_allow_html=True)
     
-    # Region selector
-    col1, col2 = st.columns([1, 2])
-    with col1:
+    # Region selector with emojis
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
         selected_region = st.selectbox(
-            "Choose Your Destination",
+            "🗺️ Select Your Destination",
             list(destinations.keys()),
+            format_func=lambda x: f"{destinations[x]['emoji']} {x}",
             key="region_selector"
         )
     
-    with col2:
-        if st.button(f"🔖 Bookmark {selected_region}", use_container_width=True):
-            st.session_state.bookmarks.add(selected_region)
-            st.success(f"Added to bookmarks!")
-    
-    # Display selected region
     region_data = destinations[selected_region]
     
     # Hero Section
     st.markdown(f"""
     <div class="content-card">
-        <h1 style="color: #D32F2F; margin-bottom: 10px;">{selected_region}</h1>
-        <h3 style="color: #1A1A1A; font-style: italic; margin-bottom: 20px;">"{region_data['tagline']}"</h3>
-        <p style="font-size: 1.1em; line-height: 1.6;">{region_data['description']}</p>
+        <div style='text-align: center;'>
+            <div class='decorative-icon'>{region_data['emoji']}</div>
+            <h1 style="color: #e76f51; margin: 20px 0; font-size: 2.5em;">{selected_region}</h1>
+            <h3 style="color: #264653; font-style: italic; margin-bottom: 25px;">"{region_data['tagline']}"</h3>
+        </div>
+        <p style="font-size: 1.15em; line-height: 1.8; color: #264653; text-align: justify;">
+            {region_data['description']}
+        </p>
     </div>
     """, unsafe_allow_html=True)
     
-    # Insider Tip Highlight
+    # Bookmark button
+    col1, col2, col3 = st.columns([1, 1, 1])
+    with col2:
+        if st.button(f"🔖 Bookmark {selected_region}", use_container_width=True, key="bookmark_region"):
+            if selected_region not in st.session_state.bookmarks:
+                st.session_state.bookmarks.append(selected_region)
+                st.success(f"✨ Added to your collection!")
+                st.balloons()
+            else:
+                st.info("Already in your bookmarks!")
+    
+    # Insider Tip
     st.markdown(f"""
     <div class="info-card">
-        <h3 style="color: #FFD700;">💡 Insider's Secret</h3>
-        <p style="font-size: 1.05em; line-height: 1.6;">{region_data['human_tip']}</p>
+        <div style='text-align: center;'>
+            <h3 style="color: #e9c46a;">💡 Insider's Secret</h3>
+        </div>
+        <p style="font-size: 1.1em; line-height: 1.7; color: #fefae0; padding: 15px;">
+            {region_data['human_tip']}
+        </p>
     </div>
     """, unsafe_allow_html=True)
     
-    # Quick Info
+    # Quick Info Metrics
+    st.markdown("<br>", unsafe_allow_html=True)
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.metric("🗓️ Recommended Days", region_data['days_needed'])
+        st.metric("🗓️ Recommended Stay", region_data['days_needed'])
     with col2:
-        st.metric("🌞 Best Months", region_data['best_months'])
+        st.metric("🌞 Best Season", region_data['best_months'])
     with col3:
-        st.metric("🏖️ Beaches", len(region_data['beaches']))
+        st.metric("🏖️ Featured Beaches", len(region_data['beaches']))
     
-    st.markdown("---")
+    st.markdown("<hr>", unsafe_allow_html=True)
     
     # Beaches Section
-    st.subheader("🏖️ Beaches & Coastal Areas")
+    st.markdown("""
+        <div style='text-align: center; padding: 20px 0;'>
+            <h2>🏖️ Coastal Treasures</h2>
+            <p style='color: #e9c46a; font-size: 1.1em;'>Discover the most beautiful beaches and coves</p>
+        </div>
+        """, unsafe_allow_html=True)
     
-    beach_tabs = st.tabs(list(region_data['beaches'].keys()))
-    for i, (beach_name, beach_info) in enumerate(region_data['beaches'].items()):
-        with beach_tabs[i]:
-            col1, col2 = st.columns([2, 1])
+    for beach_name, beach_info in region_data['beaches'].items():
+        with st.expander(f"🌊 {beach_name}", expanded=False):
+            st.markdown(f"""
+            <div class="content-card" style="padding: 25px;">
+                <h3 style="color: #2a9d8f; margin-bottom: 15px;">{beach_name}</h3>
+                <p style="font-size: 1.05em; color: #264653; line-height: 1.6;">
+                    📍 <strong>{beach_info['description']}</strong>
+                </p>
+                <br>
+                <div style="background: rgba(42, 157, 143, 0.1); padding: 15px; border-radius: 10px; margin: 10px 0;">
+                    <p style="color: #264653;"><strong>🎯 Best for:</strong> {beach_info['best_for']}</p>
+                    <p style="color: #264653;"><strong>🚗 How to get there:</strong> {beach_info['how_to_get']}</p>
+                </div>
+                <div style="background: rgba(233, 196, 106, 0.15); padding: 15px; border-radius: 10px; margin: 15px 0; border-left: 4px solid #e9c46a;">
+                    <p style="color: #264653;"><strong>💎 Insider Tip:</strong> {beach_info['insider_tip']}</p>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
             
+            col1, col2 = st.columns(2)
             with col1:
-                st.markdown(f"**{beach_name}**")
-                st.markdown(f"📍 {beach_info['description']}")
-                st.markdown(f"**Best for:** {beach_info['best_for']}")
-                st.markdown(f"**How to get there:** {beach_info['how_to_get']}")
-            
+                if st.button(f"📍 Get Directions", key=f"dir_{beach_name}"):
+                    st.success(f"Opening maps for {beach_name}...")
             with col2:
-                st.info(f"💎 **Insider Tip**\n\n{beach_info['insider_tip']}")
-            
-            if st.button(f"📍 Get Directions to {beach_name}", key=f"beach_{i}"):
-                st.success(f"Opening maps for {beach_name}...")
+                if st.button(f"💾 Save Beach", key=f"save_beach_{beach_name}"):
+                    bookmark_text = f"{beach_name} - {selected_region}"
+                    if bookmark_text not in st.session_state.bookmarks:
+                        st.session_state.bookmarks.append(bookmark_text)
+                        st.success("Saved!")
     
-    st.markdown("---")
+    st.markdown("<hr>", unsafe_allow_html=True)
     
     # Food Section
-    st.subheader("🍴 Must-Try Food & Where to Find It")
+    st.markdown("""
+        <div style='text-align: center; padding: 20px 0;'>
+            <h2>🍴 Culinary Delights</h2>
+            <p style='color: #e9c46a; font-size: 1.1em;'>Must-try dishes and where to find them</p>
+        </div>
+        """, unsafe_allow_html=True)
     
     for food_name, food_info in region_data['food'].items():
-        with st.expander(f"🍽️ {food_name}"):
-            col1, col2 = st.columns([2, 1])
+        with st.expander(f"🍽️ {food_name}", expanded=False):
+            st.markdown(f"""
+            <div class="content-card" style="padding: 25px;">
+                <h3 style="color: #e76f51; margin-bottom: 15px;">{food_name}</h3>
+                <p style="font-size: 1.05em; color: #264653;"><strong>What it is:</strong> {food_info['what']}</p>
+                <p style="font-size: 1.05em; color: #264653;"><strong>📍 Where:</strong> {food_info['where']}</p>
+                <p style="font-size: 1.05em; color: #264653;"><strong>💰 Price:</strong> {food_info['price']}</p>
+                <div style="background: rgba(244, 162, 97, 0.15); padding: 15px; border-radius: 10px; margin: 15px 0; border-left: 4px solid #f4a261;">
+                    <p style="color: #264653;"><strong>✨ Insider Tip:</strong> {food_info['insider']}</p>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
             
-            with col1:
-                st.markdown(f"**What it is:** {food_info['what']}")
-                st.markdown(f"**Where:** {food_info['where']}")
-                st.markdown(f"**Price:** {food_info['price']}")
-            
-            with col2:
-                st.success(f"✨ **Insider Tip**\n\n{food_info['insider']}")
-            
-            if st.button(f"🔖 Save this spot", key=f"food_{food_name}"):
-                st.session_state.bookmarks.add(f"{food_name} - {selected_region}")
-                st.success("Saved to bookmarks!")
+            if st.button(f"🔖 Save this spot", key=f"save_food_{food_name}"):
+                bookmark_text = f"{food_name} - {selected_region}"
+                if bookmark_text not in st.session_state.bookmarks:
+                    st.session_state.bookmarks.append(bookmark_text)
+                    st.success("Added to bookmarks!")
     
-    st.markdown("---")
+    st.markdown("<hr>", unsafe_allow_html=True)
     
-    # Must See & Hidden Gems
+    # Attractions
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown("### ⭐ Must-See Attractions")
+        st.markdown("""
+            <div class="info-card">
+                <h3 style="text-align: center; color: #e9c46a;">⭐ Must-See Attractions</h3>
+            </div>
+            """, unsafe_allow_html=True)
         for item in region_data['must_see']:
-            st.markdown(f"- {item}")
+            st.markdown(f"<p style='font-size: 1.05em; padding: 5px 0;'>{item}</p>", unsafe_allow_html=True)
     
     with col2:
-        st.markdown("### 💎 Hidden Gems")
+        st.markdown("""
+            <div class="info-card">
+                <h3 style="text-align: center; color: #e9c46a;">💎 Hidden Gems</h3>
+            </div>
+            """, unsafe_allow_html=True)
         for item in region_data['hidden_gems']:
-            st.markdown(f"- {item}")
+            st.markdown(f"<p style='font-size: 1.05em; padding: 5px 0;'>{item}</p>", unsafe_allow_html=True)
 
 # ============================================
 # TAB 2: PLAN YOUR TRIP
 # ============================================
 with tab2:
-    st.header("🧳 Trip Planning Assistant")
-    st.markdown("*Create your perfect Sicily itinerary*")
+    st.markdown("""
+        <div style='text-align: center; padding: 30px 0;'>
+            <h2>✨ Craft Your Perfect Journey</h2>
+            <p style='font-size: 1.2em; color: #e9c46a;'>Let us help you create an unforgettable experience</p>
+        </div>
+        """, unsafe_allow_html=True)
     
-    # Interactive itinerary builder
-    st.subheader("📅 Build Your Itinerary")
+    st.markdown("""
+    <div class="content-card">
+        <h3 style="color: #2a9d8f; text-align: center;">🎯 Trip Builder</h3>
+        <p style="text-align: center; color: #264653;">Tell us about your dream Sicily trip</p>
+    </div>
+    """, unsafe_allow_html=True)
     
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        trip_duration = st.number_input("How many days?", min_value=2, max_value=30, value=7)
-    
-    with col2:
-        travel_style = st.selectbox("Travel Style", [
-            "Beach & Relaxation",
-            "Culture & History",
-            "Food & Wine",
-            "Adventure & Nature",
-            "Balanced Mix"
-        ])
-    
-    with col3:
-        start_point = st.selectbox("Starting City", [
-            "Palermo", 
-            "Catania", 
-            "Syracuse",
-            "Trapani"
-        ])
-    
-    # Interests
-    st.markdown("#### 🎯 Select Your Interests")
-    col1, col2, col3, col4 = st.columns(4)
-    
-    with col1:
-        beaches_interest = st.checkbox("🏖️ Beaches")
-        ancient_sites = st.checkbox("🏛️ Ancient Sites")
-    with col2:
-        food_wine = st.checkbox("🍷 Food & Wine")
-        nature = st.checkbox("🌳 Nature & Hiking")
-    with col3:
-        baroque = st.checkbox("⛪ Baroque Towns")
-        islands = st.checkbox("⛵ Islands")
-    with col4:
-        markets = st.checkbox("🛒 Markets")
-        nightlife = st.checkbox("🎭 Nightlife")
-    
-    # Generate Itinerary Button
-    if st.button("✨ Generate My Custom Itinerary", use_container_width=True, type="primary"):
-        with st.spinner("Creating your personalized Sicily itinerary..."):
-            # Simulated itinerary generation
-            st.success("🎉 Your itinerary is ready!")
+    # Trip Planning Form
+    with st.form("trip_planner", clear_on_submit=False):
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            trip_duration = st.number_input("📅 How many days?", min_value=2, max_value=30, value=7)
+        
+        with col2:
+            travel_style = st.selectbox("🎨 Travel Style", [
+                "🏖️ Beach & Relaxation",
+                "🏛️ Culture & History",
+                "🍷 Food & Wine",
+                "🥾 Adventure & Nature",
+                "✨ Balanced Mix"
+            ])
+        
+        with col3:
+            start_point = st.selectbox("🛬 Starting City", [
+                "Palermo", 
+                "Catania", 
+                "Syracuse"
+            ])
+        
+        st.markdown("<br>", unsafe_allow_html=True)
+        
+        st.markdown("#### 🎯 Select Your Interests")
+        col1, col2, col3, col4 = st.columns(4)
+        
+        interests = []
+        with col1:
+            if st.checkbox("🏖️ Beaches"): interests.append("Beaches")
+            if st.checkbox("🏛️ Ancient Sites"): interests.append("Ancient Sites")
+        with col2:
+            if st.checkbox("🍷 Food & Wine"): interests.append("Food & Wine")
+            if st.checkbox("🌳 Nature"): interests.append("Nature")
+        with col3:
+            if st.checkbox("⛪ Baroque Towns"): interests.append("Baroque Towns")
+            if st.checkbox("⛵ Islands"): interests.append("Islands")
+        with col4:
+            if st.checkbox("🛒 Markets"): interests.append("Markets")
+            if st.checkbox("🎭 Nightlife"): interests.append("Nightlife")
+        
+        st.markdown("<br>", unsafe_allow_html=True)
+        
+        trip_name = st.text_input("🏷️ Name your trip (optional)", placeholder="e.g., 'Summer Sicily 2026'")
+        
+        submit_trip = st.form_submit_button("✨ Create My Itinerary", use_container_width=True)
+        
+        if submit_trip:
+            # Save trip
+            new_trip = {
+                'name': trip_name if trip_name else f"{travel_style} - {trip_duration} days",
+                'duration': trip_duration,
+                'style': travel_style,
+                'start': start_point,
+                'interests': interests,
+                'date_created': datetime.now().strftime("%B %d, %Y")
+            }
+            st.session_state.saved_trips.append(new_trip)
             
-            st.markdown("### 🗓️ Your Personalized Sicily Journey")
+            st.success("🎉 Your personalized itinerary is ready!")
+            st.balloons()
             
-            # Sample itinerary based on inputs
-            if trip_duration >= 7:
-                st.markdown(f"""
-                <div class="content-card">
-                    <h3>Day 1-2: {start_point}</h3>
-                    <p>Arrival and exploration of the starting city. Visit main attractions, try local food, get oriented.</p>
-                    
-                    <h3>Day 3-4: {list(destinations.keys())[1]}</h3>
-                    <p>Transfer and explore the second region based on your interests.</p>
-                    
-                    <h3>Day 5-6: {list(destinations.keys())[2]}</h3>
-                    <p>Continue to the east coast, beach time and cultural visits.</p>
-                    
-                    <h3>Day 7: Return & Departure</h3>
-                    <p>Last-minute shopping, final meal, departure.</p>
+            st.markdown(f"""
+            <div class="content-card">
+                <h2 style="color: #2a9d8f; text-align: center;">🗺️ Your {trip_duration}-Day Sicily Journey</h2>
+                <h3 style="text-align: center; color: #264653; font-style: italic;">"{new_trip['name']}"</h3>
+                <br>
+                <div style="background: rgba(42, 157, 143, 0.1); padding: 20px; border-radius: 15px;">
+                    <h3 style="color: #e76f51;">Days 1-2: {start_point}</h3>
+                    <p style="color: #264653; font-size: 1.05em;">
+                        🏨 Arrive and settle in<br>
+                        🏛️ Explore the historic center and main attractions<br>
+                        🍴 Experience local street food and markets<br>
+                        🌅 Sunset walk and aperitivo
+                    </p>
                 </div>
-                """, unsafe_allow_html=True)
+                <br>
+                <div style="background: rgba(233, 196, 106, 0.1); padding: 20px; border-radius: 15px;">
+                    <h3 style="color: #e76f51;">Days 3-{min(5, trip_duration)}: Coastal Exploration</h3>
+                    <p style="color: #264653; font-size: 1.05em;">
+                        🏖️ Beach hopping and swimming<br>
+                        🍷 Wine tasting in countryside<br>
+                        📸 Hidden gems and local villages<br>
+                        🌊 Boat trips or water activities
+                    </p>
+                </div>
+                <br>
+                <div style="background: rgba(244, 162, 97, 0.1); padding: 20px; border-radius: 15px;">
+                    <h3 style="color: #e76f51;">Final Days: Baroque & Culture</h3>
+                    <p style="color: #264653; font-size: 1.05em;">
+                        ⛪ UNESCO Baroque towns<br>
+                        🏛️ Archaeological sites<br>
+                        🛍️ Souvenir shopping<br>
+                        🍝 Final feast and arrivederci
+                    </p>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
             
-            # Save option
-            if st.button("💾 Save This Itinerary"):
-                st.session_state.saved_trips.append({
-                    'duration': trip_duration,
-                    'style': travel_style,
-                    'start': start_point,
-                    'date': datetime.now().strftime("%Y-%m-%d")
-                })
-                st.success("Itinerary saved to your dashboard!")
-    
-    st.markdown("---")
-    
-    # Pre-made itineraries
-    st.subheader("🗺️ Pre-Made Itineraries")
-    
-    itinerary_col1, itinerary_col2 = st.columns(2)
-    
-    with itinerary_col1:
-        with st.expander("⭐ The Classic Week (7 Days)"):
-            st.markdown("""
-            **Day 1-2: Palermo**
-            - Palatine Chapel & Cathedral
-            - Ballarò Market food tour
-            - Mondello Beach afternoon
-            
-            **Day 3: Cefalù & West Coast**
-            - Morning in Cefalù 
-            - Afternoon Monreale Cathedral
-            
-            **Day 4-5: Agrigento & South**
-            - Valley of the Temples (sunset)
-            - Scala dei Turchi
-            
-            **Day 6-7: Taormina & Etna**
-            - Ancient Theater
-            - Etna summit tour
-            - Isola Bella
-            """)
-            
-            if st.button("📋 Get Detailed Day-by-Day", key="classic_week"):
-                st.info("Request sent! We'll email you the detailed itinerary.")
-        
-        with st.expander("🏖️ Beach Lovers Circuit (5 Days)"):
-            st.markdown("""
-            **Day 1-2: San Vito Lo Capo**
-            - Caribbean vibes
-            - Zingaro Reserve hike
-            
-            **Day 3: Favignana**
-            - Island hopping
-            - Cala Rossa snorkeling
-            
-            **Day 4-5: Southeast Beaches**
-            - Vendicari Reserve
-            - Marzamemi fishing village
-            - Calamosche beach
-            """)
-    
-    with itinerary_col2:
-        with st.expander("🍷 Food & Wine Journey (6 Days)"):
-            st.markdown("""
-            **Day 1-2: Palermo Markets & Street Food**
-            - Market tours
-            - Cooking class
-            
-            **Day 3: Marsala Wine Region**
-            - Wine cellars
-            - Salt pans
-            
-            **Day 4-5: Etna Wine Route**
-            - Volcano wineries
-            - Pistachio farms in Bronte
-            
-            **Day 6: Modica & Noto**
-            - Chocolate workshops
-            - Baroque towns
-            """)
-        
-        with st.expander("🏛️ Ancient Sicily (5 Days)"):
-            st.markdown("""
-            **Day 1-2: Syracuse**
-            - Greek Theater
-            - Ortigia archaeological sites
-            
-            **Day 3: Agrigento**
-            - Valley of the Temples
-            - Archaeological Museum
-            
-            **Day 4-5: Segesta & Selinunte**
-            - Remote Greek temples
-            - Western archaeological sites
-            """)
-    
-    st.markdown("---")
-    
-    # Packing List Generator
-    st.subheader("🎒 Smart Packing Assistant")
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        season = st.select_slider("When are you going?", [
-            "Winter (Nov-Mar)",
-            "Spring (Apr-Jun)",
-            "Summer (Jul-Aug)",
-            "Fall (Sep-Oct)"
-        ])
-    
-    with col2:
-        activities = st.multiselect("Activities planned", [
-            "Beach days",
-            "Hiking",
-            "City touring",
-            "Fine dining",
-            "Boat trips",
-            "Wine tasting"
-        ])
-    
-    if st.button("📦 Generate Packing List"):
-        st.markdown("""
-        ### ✅ Your Sicily Packing List
-        
-        **Essentials:**
-        - 🎫 Passport & travel insurance
-        - 💳 Credit cards + €200 cash
-        - 🔌 EU plug adapter
-        - 📱 Phone & chargers
-        
-        **Clothing (Summer):**
-        - 👕 Light, breathable clothes
-        - 🩱 Swimsuit × 2
-        - 👟 Comfortable walking shoes
-        - 🥿 Sandals for beach
-        - 🧢 Sun hat
-        - 👗 Smart-casual for restaurants
-        
-        **Protection:**
-        - 🧴 SPF 50+ sunscreen
-        - 😎 Sunglasses
-        - 💧 Reusable water bottle
-        
-        **Optional:**
-        - 🤿 Snorkel gear (can rent)
-        - 📷 Camera
-        - 📚 Phrasebook or translator app
-        """)
+            st.info("💾 Itinerary saved to 'My Dashboard' for future reference!")
 
 # ============================================
-# TAB 3: PRACTICAL INFO
+# TAB 3: COMMUNITY & REVIEWS
 # ============================================
 with tab3:
-    st.header("📋 Practical Information & Travel Tips")
+    st.markdown("""
+        <div style='text-align: center; padding: 30px 0;'>
+            <h2>💬 Join Our Community</h2>
+            <p style='font-size: 1.2em; color: #e9c46a;'>Share your experiences and discover from fellow travelers</p>
+        </div>
+        """, unsafe_allow_html=True)
     
-    # Category selector
-    info_category = st.selectbox(
-        "Choose a topic",
-        list(practical_info.keys())
-    )
-    
-    category_data = practical_info[info_category]
-    
-    for topic_name, topic_info in category_data.items():
-        with st.expander(f"ℹ️ {topic_name}", expanded=True):
-            if isinstance(topic_info, dict):
-                for key, value in topic_info.items():
-                    if key != 'insider':
-                        st.markdown(f"**{key.title()}:** {value}")
-                    else:
-                        st.success(f"💡 **Insider Tip:** {value}")
-            else:
-                st.markdown(topic_info)
-    
-    st.markdown("---")
-    
-    # Emergency Contacts
-    st.subheader("🚨 Emergency & Useful Contacts")
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.markdown("""
-        **Emergency Numbers:**
-        - 🚑 Medical Emergency: **112**
-        - 🚓 Police (Carabinieri): **112**
-        - 👮 Local Police: **113**
-        - 🚒 Fire Department: **115**
-        - 🚗 Roadside Assistance: **116**
-        
-        **Consulates in Palermo:**
-        - 🇺🇸 US: +39 091 305 857
-        - 🇬🇧 UK: +39 091 326 412
-        - 🇨🇦 Canada: +39 091 584 288
-        """)
-    
-    with col2:
-        st.markdown("""
-        **Useful Services:**
-        - 🏥 Pharmacy (Farmacia): Look for green cross
-        - 🏥 24h Pharmacies: Check "farmacia di turno"
-        - 🚕 Taxi Palermo: +39 091 513 311
-        - 🚕 Taxi Catania: +39 095 330 966
-        
-        **Tourist Info:**
-        - ℹ️ Palermo Tourist Office: Piazza Castelnuovo
-        - ℹ️ Catania Tourist Office: Via Vittorio Emanuele II
-        - 📱 Sicily Tourism App: "Visit Sicily"
-        """)
-
-# ============================================
-# TAB 4: EXPERIENCES & TOURS
-# ============================================
-with tab4:
-    st.header("🍷 Unique Experiences & Tours")
-    st.markdown("*Book authentic Sicilian experiences*")
-    
-    # Experience categories
-    exp_category = st.radio(
-        "Browse by category:",
-        ["🍷 Wine & Food", "🚣 Adventure", "🎨 Culture", "👨‍🍳 Cooking Classes", "⛵ Boat Tours"],
-        horizontal=True
-    )
-    
-    # Sample experiences
-    experiences = {
-        "🍷 Wine & Food": [
-            {
-                "name": "Etna Wine Tour with Sommelier",
-                "description": "Visit 3 wineries on Etna's slopes, taste volcanic wines, lunch included",
-                "duration": "8 hours",
-                "price": "€120-150",
-                "location": "Mount Etna",
-                "highlights": ["Nerello Mascalese tasting", "Volcano views", "Traditional lunch"]
-            },
-            {
-                "name": "Palermo Street Food Tour",
-                "description": "Walk through markets with local guide, taste 10+ street foods",
-                "duration": "3 hours",
-                "price": "€50-70",
-                "location": "Palermo",
-                "highlights": ["Ballarò Market", "Panelle & arancini", "Local guide stories"]
-            },
-            {
-                "name": "Modica Chocolate Workshop",
-                "description": "Learn ancient Aztec chocolate-making technique",
-                "duration": "2 hours",
-                "price": "€45",
-                "location": "Modica",
-                "highlights": ["Hands-on workshop", "Historical techniques", "Take home chocolate"]
-            }
-        ],
-        "🚣 Adventure": [
-            {
-                "name": "Etna Summit Crater Hike",
-                "description": "Guided trek to active craters with volcanologist",
-                "duration": "6 hours",
-                "price": "€65-90",
-                "location": "Mount Etna",
-                "highlights": ["Active craters", "Expert guide", "Cable car included"]
-            },
-            {
-                "name": "Zingaro Reserve Coastal Hike",
-                "description": "7km hike along pristine coastline, swimming stops",
-                "duration": "5 hours",
-                "price": "€40",
-                "location": "Zingaro Reserve",
-                "highlights": ["Hidden coves", "Snorkeling", "Nature guide"]
-            }
-        ],
-        "🎨 Culture": [
-            {
-                "name": "Private Palatine Chapel Tour",
-                "description": "After-hours access to Palermo's Byzantine masterpiece",
-                "duration": "1.5 hours",
-                "price": "€80",
-                "location": "Palermo",
-                "highlights": ["After-hours access", "Expert art historian", "Photography allowed"]
-            },
-            {
-                "name": "Valley of Temples Sunset Tour",
-                "description": "Evening guided tour with sunset at Temple of Concordia",
-                "duration": "3 hours",
-                "price": "€55",
-                "location": "Agrigento",
-                "highlights": ["Golden hour photography", "Night illumination", "Archaeologist guide"]
-            }
-        ],
-        "👨‍🍳 Cooking Classes": [
-            {
-                "name": "Sicilian Grandma's Kitchen",
-                "description": "Cook traditional dishes in local home, family-style lunch",
-                "duration": "4 hours",
-                "price": "€85",
-                "location": "Palermo countryside",
-                "highlights": ["Arancini making", "Pasta alla Norma", "Family hospitality"]
-            },
-            {
-                "name": "Cannoli & Cassata Masterclass",
-                "description": "Learn Sicily's iconic desserts from pastry chef",
-                "duration": "3 hours",
-                "price": "€70",
-                "location": "Palermo or Catania",
-                "highlights": ["Professional kitchen", "Ricotta cream secrets", "Take home desserts"]
-            }
-        ],
-        "⛵ Boat Tours": [
-            {
-                "name": "Egadi Islands Day Trip",
-                "description": "Sail around Favignana, Levanzo, swimming stops",
-                "duration": "8 hours",
-                "price": "€70-90",
-                "location": "Trapani",
-                "highlights": ["3 islands", "Cave exploration", "Lunch on board"]
-            },
-            {
-                "name": "Taormina Sunset Cruise",
-                "description": "Coastal cruise with Etna views, aperitivo included",
-                "duration": "2 hours",
-                "price": "€50",
-                "location": "Taormina",
-                "highlights": ["Isola Bella from sea", "Prosecco & snacks", "Sunset views"]
-            }
-        ]
-    }
-    
-    # Display experiences
-    for experience in experiences.get(exp_category, []):
-        with st.expander(f"⭐ {experience['name']} - {experience['price']}"):
-            col1, col2 = st.columns([2, 1])
-            
-            with col1:
-                st.markdown(f"**{experience['description']}**")
-                st.markdown(f"📍 **Location:** {experience['location']}")
-                st.markdown(f"⏱️ **Duration:** {experience['duration']}")
-                st.markdown(f"💰 **Price:** {experience['price']}")
-                
-                st.markdown("**Highlights:**")
-                for highlight in experience['highlights']:
-                    st.markdown(f"- ✓ {highlight}")
-            
-            with col2:
-                if st.button("📧 Request Info", key=experience['name']):
-                    st.success("Info request sent! We'll contact you within 24 hours.")
-                
-                if st.button("💾 Save for Later", key=f"save_{experience['name']}"):
-                    st.session_state.bookmarks.add(experience['name'])
-                    st.success("Saved!")
-
-# ============================================
-# TAB 5: GET INFO NOW (FORMS)
-# ============================================
-with tab5:
-    st.header("❓ Get Information On The Go")
-    st.markdown("*Ask specific questions and get personalized recommendations*")
-    
-    # Question type selector
-    question_type = st.selectbox(
-        "What do you need help with?",
-        [
-            "🍴 Restaurant Recommendation",
-            "🏨 Accommodation Advice",
-            "🚗 Transportation Question",
-            "🏖️ Beach Recommendation",
-            "🗺️ Day Trip Planning",
-            "💰 Budget Question",
-            "👨‍👩‍👧 Family Travel Tips",
-            "♿ Accessibility Information",
-            "📱 General Question"
-        ]
-    )
-    
-    st.markdown("---")
-    
-    # Dynamic form based on question type
-    if "Restaurant" in question_type:
-        st.subheader("🍴 Get Restaurant Recommendations")
-        
-        with st.form("restaurant_form"):
-            col1, col2 = st.columns(2)
-            
-            with col1:
-                location = st.selectbox("Where are you?", [
-                    "Palermo", "Catania", "Syracuse", "Taormina", 
-                    "Agrigento", "Trapani", "Noto", "Ragusa", "Other"
-                ])
-                cuisine_pref = st.multiselect("Cuisine preferences", [
-                    "Traditional Sicilian",
-                    "Seafood",
-                    "Pizza & Pasta",
-                    "Fine Dining",
-                    "Street Food",
-                    "Vegetarian/Vegan",
-                    "Gluten-free options"
-                ])
-            
-            with col2:
-                budget = st.select_slider("Budget per person", [
-                    "€10-20 (Casual)",
-                    "€20-40 (Mid-range)",
-                    "€40-70 (Upscale)",
-                    "€70+ (Fine dining)"
-                ])
-                atmosphere = st.radio("Atmosphere", [
-                    "Casual & Local",
-                    "Romantic",
-                    "Family-friendly",
-                    "Trendy/Modern"
-                ])
-            
-            special_requests = st.text_area("Any special requests? (allergies, celebrations, etc.)")
-            
-            submit_restaurant = st.form_submit_button("🔍 Get Recommendations", use_container_width=True)
-            
-            if submit_restaurant:
-                with st.spinner("Finding the perfect spots for you..."):
-                    st.success("✅ Recommendations ready!")
-                    st.markdown(f"""
-                    ### Your Personalized Recommendations in {location}
-                    
-                    **1. 🌟 Top Pick: Trattoria del Mare**
-                    - Perfect match for your preferences
-                    - Price range: {budget}
-                    - Atmosphere: {atmosphere}
-                    - *"The seafood pasta is sublime, and they can accommodate gluten-free"*
-                    
-                    **2. 🍝 Alternative: Osteria Antica**
-                    - Traditional Sicilian specialties
-                    - Great local wine selection
-                    - *"Ask for the off-menu daily specials"*
-                    
-                    **3. 💎 Hidden Gem: Cucina di Nonna Rosa**
-                    - Family-run, authentic atmosphere
-                    - Booking recommended
-                    """)
-                    
-                    if st.button("📧 Email me these recommendations"):
-                        st.info("Recommendations sent to your email!")
-    
-    elif "Accommodation" in question_type:
-        st.subheader("🏨 Find Your Perfect Stay")
-        
-        with st.form("accommodation_form"):
-            col1, col2 = st.columns(2)
-            
-            with col1:
-                stay_location = st.selectbox("Where do you want to stay?", 
-                    list(destinations.keys()) + ["Other"])
-                check_in = st.date_input("Check-in date", 
-                    value=datetime.now() + timedelta(days=30))
-                check_out = st.date_input("Check-out date",
-                    value=datetime.now() + timedelta(days=33))
-            
-            with col2:
-                accommodation_type = st.multiselect("Type of accommodation", [
-                    "Hotel",
-                    "B&B",
-                    "Vacation Rental",
-                    "Agriturismo (Farm stay)",
-                    "Hostel",
-                    "Luxury Resort"
-                ])
-                budget_night = st.select_slider("Budget per night", [
-                    "€30-60",
-                    "€60-100",
-                    "€100-150",
-                    "€150-250",
-                    "€250+"
-                ])
-            
-            priorities = st.multiselect("What matters most?", [
-                "Central location",
-                "Sea view",
-                "Swimming pool",
-                "Parking",
-                "Breakfast included",
-                "Kitchen facilities",
-                "Walking distance to beach",
-                "Quiet area"
-            ])
-            
-            additional_info = st.text_area("Additional requirements")
-            
-            submit_accommodation = st.form_submit_button("🏠 Find Accommodations", use_container_width=True)
-            
-            if submit_accommodation:
-                st.success("📍 Top recommendations found!")
-                st.markdown(f"""
-                ### Recommended Stays in {stay_location}
-                
-                **Based on your criteria:** {', '.join(accommodation_type)} | {budget_night} | {check_in} to {check_out}
-                
-                *We'll send you a curated list of 5-7 properties with direct booking links and insider tips.*
-                """)
-                
-                email_input = st.text_input("Email address for recommendations")
-                if st.button("Send Recommendations"):
-                    if email_input:
-                        st.success(f"✅ Sent to {email_input}!")
-    
-    elif "Transportation" in question_type:
-        st.subheader("🚗 Transportation Help")
-        
-        with st.form("transportation_form"):
-            transport_question = st.radio("What do you need?", [
-                "Best way to get from A to B",
-                "Car rental advice",
-                "Public transportation info",
-                "Airport transfer",
-                "Parking information"
-            ])
-            
-            if "A to B" in transport_question:
-                col1, col2 = st.columns(2)
-                with col1:
-                    from_location = st.text_input("From")
-                with col2:
-                    to_location = st.text_input("To")
-                
-                travel_date = st.date_input("When?")
-                passengers = st.number_input("Number of people", 1, 10, 2)
-            
-            preferences = st.multiselect("Preferences", [
-                "Fastest route",
-                "Most scenic",
-                "Budget-friendly",
-                "Public transport only",
-                "Comfort priority"
-            ])
-            
-            additional_context = st.text_area("Additional details")
-            
-            submit_transport = st.form_submit_button("Get Transportation Advice")
-            
-            if submit_transport:
-                st.success("🚗 Here's your route advice:")
-                st.info(f"""
-                **From {from_location} to {to_location}**
-                
-                **Recommended Option:** Private car rental
-                - Duration: ~2 hours
-                - Cost: €40-60 (rental + gas)
-                - Route: A19 highway (scenic coastal views)
-                
-                **Alternative:** Bus + Train
-                - Duration: ~3.5 hours
-                - Cost: €15-20
-                - Changes: 1
-                
-                💡 *For {passengers} people, car rental is more economical and flexible*
-                """)
-    
-    elif "Beach" in question_type:
-        st.subheader("🏖️ Find Your Perfect Beach")
-        
-        with st.form("beach_form"):
-            col1, col2 = st.columns(2)
-            
-            with col1:
-                beach_region = st.selectbox("Which area?", [
-                    "Don't mind - show me the best",
-                    "Near Palermo",
-                    "Near Catania",
-                    "Near Syracuse",
-                    "Southwest",
-                    "Islands (Egadi, etc.)"
-                ])
-                
-                beach_type = st.multiselect("Beach characteristics", [
-                    "White sand",
-                    "Crystal clear water",
-                    "Snorkeling spots",
-                    "Family-friendly (shallow)",
-                    "Secluded/quiet",
-                    "Beach clubs available",
-                    "Rocky/dramatic cliffs",
-                    "Good for sunset"
-                ])
-            
-            with col2:
-                accessibility = st.radio("Accessibility", [
-                    "Easy access (parking nearby)",
-                    "Don't mind a short walk",
-                    "Up for a hike to hidden gems"
-                ])
-                
-                facilities = st.multiselect("Needed facilities", [
-                    "Restaurants nearby",
-                    "Showers/toilets",
-                    "Umbrella/chair rental",
-                    "Parking",
-                    "Completely wild/natural"
-                ])
-            
-            when_visit = st.date_input("When are you going?")
-            
-            submit_beach = st.form_submit_button("🏖️ Find My Beach")
-            
-            if submit_beach:
-                st.success("🌊 Perfect beaches for you:")
-                
-                col1, col2 = st.columns(2)
-                
-                with col1:
-                    st.markdown("""
-                    ### 🥇 Top Match: Cala Rossa (Favignana)
-                    - ⭐⭐⭐⭐⭐ Spectacular turquoise water
-                    - 🏊 Perfect for snorkeling
-                    - 🚶 20-minute bike ride from port
-                    - 💡 *Insider:* Arrive before 11 AM
-                    
-                    **Why this beach:** Matches all your criteria for clear water and snorkeling
-                    """)
-                
-                with col2:
-                    st.markdown("""
-                    ### 🥈 Runner-up: Calamosche (Vendicari)
-                    - ⭐⭐⭐⭐⭐ Secluded paradise
-                    - 🌿 Protected nature reserve
-                    - 🚶 20-minute walk from parking
-                    - 💡 *Insider:* Best in September (fewer crowds)
-                    """)
-                
-                st.markdown("### 🥉 Also Consider: Fontane Bianche")
-                st.info("Great family option near Syracuse with easy access and facilities")
-    
-    elif "Day Trip" in question_type:
-        st.subheader("🗺️ Plan a Day Trip")
-        
-        with st.form("day_trip_form"):
-            starting_from = st.selectbox("Starting from", [
-                "Palermo", "Catania", "Syracuse", "Taormina", "Other"
-            ])
-            
-            interests = st.multiselect("I want to see/do", [
-                "Ancient ruins",
-                "Beaches",
-                "Medieval towns",
-                "Wine tasting",
-                "Nature/hiking",
-                "Local markets",
-                "Volcanic landscapes"
-            ])
-            
-            col1, col2 = st.columns(2)
-            with col1:
-                trip_date = st.date_input("Date of trip")
-                has_car = st.radio("Do you have a car?", ["Yes", "No"])
-            
-            with col2:
-                group_size = st.number_input("People in group", 1, 20, 2)
-                budget = st.select_slider("Budget", ["€20-40", "€40-70", "€70-100", "€100+"])
-            
-            submit_daytrip = st.form_submit_button("🗺️ Create Day Trip Plan")
-            
-            if submit_daytrip:
-                st.success("✨ Your custom day trip:")
-                
-                st.markdown(f"""
-                ### Day Trip from {starting_from}
-                
-                **Morning (9:00 AM - 12:00 PM)**
-                - 🚗 Depart for Agrigento Valley of the Temples (1.5h drive)
-                - 🏛️ Guided tour of ancient Greek temples
-                - ☕ Coffee break at nearby bar
-                
-                **Lunch (12:30 PM - 2:00 PM)**
-                - 🍝 Trattoria La Scala - traditional Sicilian lunch
-                - Budget: ~€20 per person
-                
-                **Afternoon (2:00 PM - 5:00 PM)**
-                - 🏖️ Visit Scala dei Turchi white cliffs
-                - 🏊 Quick swim (bring swimsuit!)
-                - 📸 Photos at sunset viewpoint
-                
-                **Evening (5:00 PM - 7:00 PM)**
-                - 🚗 Return to {starting_from}
-                - 🍷 Optional: stop at winery on route back
-                
-                **Total Cost Estimate:** €{40 + (20 if has_car == "No" else 0)} per person
-                **Best suited for:** {interests[0] if interests else 'Exploration'} lovers
-                """)
-                
-                if st.button("📧 Email me detailed directions"):
-                    st.success("Detailed itinerary sent!")
-    
-    else:  # General question
-        st.subheader("📱 Ask Anything")
-        
-        with st.form("general_question_form"):
-            name = st.text_input("Your name (optional)")
-            email = st.text_input("Email (to receive response)")
-            
-            question = st.text_area("Your question", height=150,
-                placeholder="Example: Is Sicily safe for solo female travelers? What's the tipping culture? Can I drink tap water?")
-            
-            urgency = st.radio("How urgent?", [
-                "Just curious",
-                "Planning soon (within 2 weeks)",
-                "Urgent (already in Sicily!)"
-            ])
-            
-            submit_general = st.form_submit_button("💬 Submit Question", use_container_width=True)
-            
-            if submit_general:
-                if question and email:
-                    st.success("✅ Question received!")
-                    st.info(f"""
-                    Thank you{' ' + name if name else ''}! We'll respond to **{email}** within:
-                    - 🚀 Urgent: 2-4 hours
-                    - 📅 Planning soon: 24 hours
-                    - 💭 Just curious: 48 hours
-                    
-                    In the meantime, check our Practical Info tab for common questions!
-                    """)
-                    
-                    # Store in session state
-                    st.session_state.feedback_data.append({
-                        'type': 'question',
-                        'question': question,
-                        'urgency': urgency,
-                        'timestamp': datetime.now()
-                    })
-                else:
-                    st.error("Please provide your question and email address")
-
-# ============================================
-# TAB 6: COMMUNITY & FEEDBACK
-# ============================================
-with tab6:
-    st.header("💬 Community & Your Feedback")
-    
-    # Tabs within community
+    # Sub-tabs for community
     comm_tab1, comm_tab2, comm_tab3 = st.tabs([
-        "📮 Share Feedback",
-        "⭐ Rate & Review",
-        "💡 Suggest Additions"
+        "⭐ Reviews & Ratings",
+        "💡 Share Your Tips",
+        "📮 Feedback"
     ])
     
     with comm_tab1:
-        st.subheader("📮 Help Us Improve This Guide")
+        st.markdown("""
+            <div class="content-card">
+                <h3 style="color: #2a9d8f; text-align: center;">⭐ Rate Your Experience</h3>
+                <p style="text-align: center; color: #264653;">Help fellow travelers with your insights</p>
+            </div>
+            """, unsafe_allow_html=True)
         
-        with st.form("feedback_form"):
+        with st.form("review_form", clear_on_submit=True):
             col1, col2 = st.columns(2)
             
             with col1:
-                feedback_name = st.text_input("Your Name")
-                feedback_email = st.text_input("Email (optional)")
+                review_type = st.selectbox("📍 What are you reviewing?", [
+                    "Restaurant",
+                    "Beach",
+                    "Hotel/Accommodation",
+                    "Attraction",
+                    "Tour/Experience"
+                ])
+                place_name = st.text_input("🏷️ Name of place")
             
             with col2:
-                visited_before = st.radio("Have you been to Sicily?", [
-                    "Not yet, planning",
-                    "Currently there!",
-                    "Yes, in the past"
-                ])
+                location = st.selectbox("📍 Location", list(destinations.keys()))
+                rating = st.slider("⭐ Your rating", 1, 5, 4)
+            
+            visit_date = st.date_input("📅 When did you visit?", value=datetime.now() - timedelta(days=30))
+            
+            would_recommend = st.radio("👍 Would you recommend this?", 
+                ["✅ Absolutely!", "👌 Yes, with reservations", "❌ Not really"], 
+                horizontal=True)
+            
+            review_text = st.text_area(
+                "✍️ Share your experience",
+                height=150,
+                placeholder="What made it special? Any tips for future visitors? What should people know?"
+            )
+            
+            reviewer_name = st.text_input("👤 Your name (optional)", value=st.session_state.user_name)
+            
+            submit_review = st.form_submit_button("🌟 Submit Review", use_container_width=True)
+            
+            if submit_review and place_name and review_text:
+                new_review = {
+                    'type': review_type,
+                    'place': place_name,
+                    'location': location,
+                    'rating': rating,
+                    'recommend': would_recommend,
+                    'review': review_text,
+                    'reviewer': reviewer_name,
+                    'date': visit_date.strftime("%B %d, %Y"),
+                    'timestamp': datetime.now()
+                }
+                st.session_state.reviews.append(new_review)
                 
-                how_helpful = st.slider("How helpful is this guide?", 1, 5, 5)
+                st.success("🎉 Thank you for sharing your experience!")
+                st.balloons()
+                st.info("Your review has been added to the community!")
+        
+        # Display recent reviews
+        if st.session_state.reviews:
+            st.markdown("<br><hr><br>", unsafe_allow_html=True)
+            st.markdown("""
+                <div style='text-align: center;'>
+                    <h3 style="color: #e9c46a;">📜 Recent Community Reviews</h3>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            for review in reversed(st.session_state.reviews[-5:]):  # Show last 5 reviews
+                stars = "⭐" * review['rating']
+                st.markdown(f"""
+                <div class="review-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <div>
+                            <h3 style="color: #e9c46a; margin: 0;">{review['place']}</h3>
+                            <p style="color: #fefae0; margin: 5px 0; font-size: 0.9em;">{review['location']} • {review['type']}</p>
+                        </div>
+                        <div class="star-rating">{stars}</div>
+                    </div>
+                    <p style="color: #fefae0; line-height: 1.6; font-size: 1.05em;">"{review['review']}"</p>
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(233, 196, 106, 0.3);">
+                        <p style="color: #e9c46a; font-size: 0.9em;">
+                            👤 {review['reviewer']} • 📅 Visited {review['date']} • {review['recommend']}
+                        </p>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+        else:
+            st.info("🌟 Be the first to share a review!")
+    
+    with comm_tab2:
+        st.markdown("""
+            <div class="content-card">
+                <h3 style="color: #2a9d8f; text-align: center;">💡 Share Your Insider Tips</h3>
+                <p style="text-align: center; color: #264653;">Know a hidden gem? Share it with the community!</p>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with st.form("tips_form", clear_on_submit=True):
+            tip_category = st.selectbox("🏷️ Category", [
+                "Hidden Beach",
+                "Local Restaurant",
+                "Secret Viewpoint",
+                "Cultural Tip",
+                "Money-Saving Hack",
+                "Transportation Advice",
+                "Other"
+            ])
+            
+            tip_title = st.text_input("📝 Tip Title", placeholder="e.g., 'Best sunset spot in Palermo'")
+            
+            tip_location = st.selectbox("📍 Related to", ["Sicily (General)"] + list(destinations.keys()))
+            
+            tip_content = st.text_area(
+                "✍️ Share your tip",
+                height=150,
+                placeholder="Share the details, how to get there, what makes it special..."
+            )
+            
+            submit_tip = st.form_submit_button("✨ Share Tip", use_container_width=True)
+            
+            if submit_tip and tip_title and tip_content:
+                st.success("🙏 Grazie! Your tip will help many travelers!")
+                st.balloons()
+                st.info("Tip submitted for review. It will appear in the community section within 24-48 hours.")
+    
+    with comm_tab3:
+        st.markdown("""
+            <div class="content-card">
+                <h3 style="color: #2a9d8f; text-align: center;">📮 Send Us Feedback</h3>
+                <p style="text-align: center; color: #264653;">Help us improve this guide for everyone</p>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with st.form("feedback_form", clear_on_submit=True):
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                feedback_name = st.text_input("👤 Your Name", value=st.session_state.user_name)
+                feedback_email = st.text_input("📧 Email (optional)")
+            
+            with col2:
+                visited = st.radio("🗺️ Have you been to Sicily?", [
+                    "Planning my first trip",
+                    "Currently traveling!",
+                    "Been there before"
+                ])
+                helpfulness = st.slider("⭐ How helpful is this guide?", 1, 5, 5)
+            
+            feedback_category = st.multiselect("What would you like to tell us about?", [
+                "Missing information",
+                "Incorrect details",
+                "Suggestion for improvement",
+                "New feature request",
+                "General praise 😊",
+                "Other"
+            ])
             
             feedback_text = st.text_area(
-                "Your feedback, suggestions, or corrections",
+                "💭 Your feedback",
                 height=150,
-                placeholder="What could we improve? Any missing information? Errors to correct?"
+                placeholder="What can we improve? What's missing? What do you love?"
             )
             
             submit_feedback = st.form_submit_button("📤 Send Feedback", use_container_width=True)
             
-            if submit_feedback and feedback_name and feedback_text:
-                st.session_state.feedback_data.append({
+            if submit_feedback and feedback_text:
+                feedback_entry = {
                     'name': feedback_name,
-                    'rating': how_helpful,
+                    'email': feedback_email,
+                    'visited': visited,
+                    'rating': helpfulness,
+                    'category': feedback_category,
                     'feedback': feedback_text,
                     'timestamp': datetime.now()
-                })
-                st.success(f"Grazie mille, {feedback_name}! Your feedback makes this guide better.")
-                st.balloons()
-    
-    with comm_tab2:
-        st.subheader("⭐ Rate Places You've Visited")
-        
-        st.markdown("*Help other travelers by sharing your experiences*")
-        
-        with st.form("review_form"):
-            place_type = st.selectbox("What are you reviewing?", [
-                "Restaurant",
-                "Beach",
-                "Attraction",
-                "Hotel/Accommodation",
-                "Tour/Experience"
-            ])
-            
-            place_name = st.text_input("Name of place")
-            location = st.selectbox("Location", list(destinations.keys()) + ["Other"])
-            
-            rating = st.slider("Your rating", 1, 5, 4)
-            
-            col1, col2 = st.columns(2)
-            with col1:
-                would_recommend = st.radio("Would you recommend?", ["Yes", "Maybe", "No"])
-            with col2:
-                visit_date = st.date_input("When did you visit?")
-            
-            review_text = st.text_area(
-                "Your review",
-                placeholder="Share your experience, tips, what made it special or what to avoid..."
-            )
-            
-            photo_upload = st.file_uploader("Upload photos (optional)", 
-                type=['jpg', 'jpeg', 'png'], accept_multiple_files=True)
-            
-            submit_review = st.form_submit_button("✍️ Submit Review")
-            
-            if submit_review and place_name and review_text:
-                st.success("✅ Review submitted! Thank you for contributing!")
-                st.info("Your review will be added after moderation (24-48 hours)")
-    
-    with comm_tab3:
-        st.subheader("💡 Suggest New Content")
-        
-        st.markdown("*Know a hidden gem we're missing?*")
-        
-        with st.form("suggestion_form"):
-            suggestion_type = st.radio("What should we add?", [
-                "New region/city",
-                "Restaurant/food spot",
-                "Beach",
-                "Activity/tour",
-                "Practical tip",
-                "Other"
-            ])
-            
-            suggestion_title = st.text_input("Title/Name")
-            
-            suggestion_details = st.text_area(
-                "Details",
-                height=150,
-                placeholder="Tell us why this should be included, location, what makes it special..."
-            )
-            
-            your_connection = st.text_input("Your connection to this place (optional)",
-                placeholder="e.g., 'Local resident', 'Visited last month', 'Friend owns this restaurant'")
-            
-            submit_suggestion = st.form_submit_button("💡 Submit Suggestion")
-            
-            if submit_suggestion and suggestion_title and suggestion_details:
-                st.success("🙏 Thank you for the suggestion!")
-                st.info("We'll review and potentially add it in the next update.")
+                }
+                st.session_state.feedback_data.append(feedback_entry)
                 
-                # Save to session
-                st.session_state.feedback_data.append({
-                    'type': 'suggestion',
-                    'category': suggestion_type,
-                    'title': suggestion_title,
-                    'details': suggestion_details,
-                    'timestamp': datetime.now()
-                })
+                st.success(f"Grazie mille, {feedback_name}! 🙏")
+                st.balloons()
+                st.info("Your feedback helps make this guide better for everyone!")
+        
+        # Community stats
+        st.markdown("<br><hr><br>", unsafe_allow_html=True)
+        st.markdown("""
+            <div style='text-align: center;'>
+                <h3 style="color: #e9c46a;">📊 Community Impact</h3>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            st.metric("👥 Active Users", "2,847")
+        with col2:
+            st.metric("⭐ Reviews", len(st.session_state.reviews))
+        with col3:
+            st.metric("💬 Feedback", len(st.session_state.feedback_data))
+        with col4:
+            st.metric("🌍 Countries", "23")
+
+# ============================================
+# TAB 4: PRACTICAL GUIDE
+# ============================================
+with tab4:
+    st.markdown("""
+        <div style='text-align: center; padding: 30px 0;'>
+            <h2>📋 Essential Travel Information</h2>
+            <p style='font-size: 1.2em; color: #e9c46a;'>Everything you need to know before you go</p>
+        </div>
+        """, unsafe_allow_html=True)
     
-    st.markdown("---")
+    # Practical information sections
+    prac_tab1, prac_tab2, prac_tab3 = st.tabs([
+        "🚗 Getting Around",
+        "💰 Money & Budget",
+        "🗣️ Language & Culture"
+    ])
     
-    # Recent community stats
-    st.subheader("📊 Community Stats")
+    with prac_tab1:
+        st.markdown("""
+        <div class="content-card">
+            <h3 style="color: #2a9d8f;">🚗 Transportation Guide</h3>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        transport_options = {
+            "🚗 Car Rental": {
+                "pros": "Freedom to explore, reach remote beaches, wine regions",
+                "cons": "City traffic, narrow streets, parking challenges",
+                "cost": "€30-50/day",
+                "tip": "Book automatic transmission in advance—manuals are standard"
+            },
+            "🚂 Trains": {
+                "pros": "Scenic coastal routes, connects major cities",
+                "cons": "Limited inland, slower on some routes",
+                "cost": "€8-15 between cities",
+                "tip": "Circumetnea train around Etna is a day trip itself"
+            },
+            "🚌 Buses": {
+                "pros": "Reaches everywhere, affordable",
+                "cons": "Schedules can be unreliable, crowded in summer",
+                "cost": "€5-20 depending on distance",
+                "tip": "Buy tickets at tobacco shops (tabacchi), not on board"
+            },
+            "🛵 Scooter": {
+                "pros": "Perfect for towns and islands, park anywhere",
+                "cons": "Hot in summer, limited range",
+                "cost": "€20-35/day",
+                "tip": "Always wear helmet—police are strict now"
+            }
+        }
+        
+        for transport, details in transport_options.items():
+            with st.expander(transport):
+                st.markdown(f"""
+                <div class="content-card" style="padding: 20px;">
+                    <p><strong>✅ Pros:</strong> {details['pros']}</p>
+                    <p><strong>❌ Cons:</strong> {details['cons']}</p>
+                    <p><strong>💰 Cost:</strong> {details['cost']}</p>
+                    <div style="background: rgba(233, 196, 106, 0.15); padding: 15px; border-radius: 10px; margin-top: 10px;">
+                        <p><strong>💡 Insider Tip:</strong> {details['tip']}</p>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+    
+    with prac_tab2:
+        st.markdown("""
+        <div class="content-card">
+            <h3 style="color: #2a9d8f;">💰 Money Matters</h3>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("""
+            <div class="info-card">
+                <h4 style="color: #e9c46a;">💵 Daily Budget</h4>
+                <p><strong>Budget:</strong> €50-70/day<br>
+                <em>(Hostels, street food, public transport)</em></p>
+                <p><strong>Mid-range:</strong> €100-150/day<br>
+                <em>(B&Bs, trattorias, some car rental)</em></p>
+                <p><strong>Luxury:</strong> €250+/day<br>
+                <em>(Hotels, fine dining, private tours)</em></p>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with col2:
+            st.markdown("""
+            <div class="info-card">
+                <h4 style="color: #e9c46a;">💳 Tipping Guide</h4>
+                <p><strong>Restaurants:</strong> Round up or €5-10<br>
+                <em>(Service often included)</em></p>
+                <p><strong>Bars:</strong> €1 for table service<br>
+                <em>(Not expected for coffee)</em></p>
+                <p><strong>Taxis:</strong> Round to nearest €5</p>
+                <p><em>Note: Coperto (cover charge) €1-3 is normal</em></p>
+            </div>
+            """, unsafe_allow_html=True)
+    
+    with prac_tab3:
+        st.markdown("""
+        <div class="content-card">
+            <h3 style="color: #2a9d8f;">🗣️ Language & Culture</h3>
+            <p style="color: #264653;">English is spoken in tourist areas, but learning a few Italian phrases goes a long way!</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div class="info-card">
+            <h4 style="color: #e9c46a;">🗨️ Essential Phrases</h4>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        phrases = {
+            "Buongiorno": "Good morning",
+            "Per favore": "Please",
+            "Grazie": "Thank you",
+            "Scusi": "Excuse me",
+            "Quanto costa?": "How much?",
+            "Dov'è...?": "Where is...?",
+            "Il conto, per favore": "The bill, please",
+            "Che cosa consiglia?": "What do you recommend?",
+            "Senza glutine": "Gluten-free",
+            "Delizioso!": "Delicious!"
+        }
+        
+        col1, col2 = st.columns(2)
+        for i, (italian, english) in enumerate(phrases.items()):
+            with (col1 if i % 2 == 0 else col2):
+                st.markdown(f"**{italian}** → *{english}*")
+
+# ============================================
+# TAB 5: ASK & DISCOVER
+# ============================================
+with tab5:
+    st.markdown("""
+        <div style='text-align: center; padding: 30px 0;'>
+            <h2>❓ Your Personal Concierge</h2>
+            <p style='font-size: 1.2em; color: #e9c46a;'>Get personalized recommendations and answers</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    question_type = st.selectbox(
+        "What can we help you with?",
+        [
+            "🍴 Restaurant Recommendation",
+            "🏨 Where to Stay",
+            "🏖️ Beach Suggestion",
+            "🗺️ Day Trip Ideas",
+            "🚗 Transportation Help",
+            "💭 General Question"
+        ]
+    )
+    
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    if "Restaurant" in question_type:
+        st.markdown("""
+        <div class="content-card">
+            <h3 style="color: #2a9d8f; text-align: center;">🍴 Find Your Perfect Restaurant</h3>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        with st.form("restaurant_finder"):
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                rest_location = st.selectbox("📍 Where are you?", 
+                    ["Palermo", "Catania", "Syracuse", "Taormina", "Other"])
+                cuisine = st.multiselect("🍽️ Cuisine Type", [
+                    "Traditional Sicilian",
+                    "Seafood",
+                    "Pizza",
+                    "Fine Dining",
+                    "Vegetarian/Vegan"
+                ])
+            
+            with col2:
+                budget = st.select_slider("💰 Budget per person", [
+                    "€10-20",
+                    "€20-40",
+                    "€40-70",
+                    "€70+"
+                ])
+                occasion = st.radio("🎭 Occasion", [
+                    "Casual meal",
+                    "Romantic dinner",
+                    "Family gathering"
+                ])
+            
+            special = st.text_area("Any special requests?", placeholder="Allergies, celebrations, etc.")
+            
+            if st.form_submit_button("🔍 Find Restaurants", use_container_width=True):
+                st.success("✨ Perfect matches found!")
+                st.markdown(f"""
+                <div class="content-card">
+                    <h3 style="color: #e76f51;">Top Picks in {rest_location}</h3>
+                    <br>
+                    <div style="background: rgba(42, 157, 143, 0.1); padding: 20px; border-radius: 15px; margin: 15px 0;">
+                        <h4 style="color: #2a9d8f;">🌟 Trattoria del Mare</h4>
+                        <p>Perfect for: {occasion}</p>
+                        <p>Budget: {budget}</p>
+                        <p><em>"Authentic Sicilian seafood, family-run for 3 generations"</em></p>
+                    </div>
+                    <div style="background: rgba(233, 196, 106, 0.1); padding: 20px; border-radius: 15px; margin: 15px 0;">
+                        <h4 style="color: #e9c46a;">💎 Osteria Antica</h4>
+                        <p>Specialty: Traditional dishes</p>
+                        <p><em>"Hidden gem in the old town, incredible wine selection"</em></p>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+    
+    elif "Beach" in question_type:
+        st.markdown("""
+        <div class="content-card">
+            <h3 style="color: #2a9d8f; text-align: center;">🏖️ Discover Your Perfect Beach</h3>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        with st.form("beach_finder"):
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                beach_area = st.selectbox("📍 Preferred area", [
+                    "Any - show me the best",
+                    "Near Palermo",
+                    "Near Catania",
+                    "Near Syracuse",
+                    "Islands"
+                ])
+                beach_features = st.multiselect("What you're looking for", [
+                    "White sand",
+                    "Snorkeling",
+                    "Family-friendly",
+                    "Secluded",
+                    "Beach clubs"
+                ])
+            
+            with col2:
+                access = st.radio("Accessibility", [
+                    "Easy access",
+                    "Short walk OK",
+                    "Hidden gems (hiking)"
+                ])
+            
+            if st.form_submit_button("🌊 Find My Beach", use_container_width=True):
+                st.success("🏖️ Found your perfect match!")
+                st.info("Cala Rossa in Favignana matches your preferences perfectly!")
+    
+    else:
+        st.markdown("""
+        <div class="content-card">
+            <h3 style="color: #2a9d8f; text-align: center;">💭 Ask Us Anything</h3>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        with st.form("general_question"):
+            your_question = st.text_area(
+                "What would you like to know?",
+                height=150,
+                placeholder="e.g., Is Sicily safe for solo travelers? Best time for wine harvest? Can I drink tap water?"
+            )
+            
+            contact_email = st.text_input("📧 Your email (for response)")
+            
+            urgency = st.radio("⏱️ How urgent?", [
+                "Just curious",
+                "Planning soon",
+                "Already in Sicily!"
+            ])
+            
+            if st.form_submit_button("📤 Submit Question", use_container_width=True):
+                if your_question and contact_email:
+                    st.success("✅ Question received!")
+                    st.info(f"""
+                    We'll respond to **{contact_email}** within:
+                    - 🚨 Already there: 2-4 hours
+                    - 📅 Planning soon: 24 hours
+                    - 💭 Just curious: 48 hours
+                    """)
+
+# ============================================
+# TAB 6: MY DASHBOARD
+# ============================================
+with tab6:
+    st.markdown(f"""
+        <div style='text-align: center; padding: 30px 0;'>
+            <h2>📊 Welcome Back, {st.session_state.user_name}!</h2>
+            <p style='font-size: 1.2em; color: #e9c46a;'>Your personal Sicily travel hub</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # Stats Overview
     col1, col2, col3, col4 = st.columns(4)
     
     with col1:
-        st.metric("Total Visitors", "2,847")
+        st.metric("📌 Bookmarks", len(st.session_state.bookmarks))
     with col2:
-        st.metric("Reviews Submitted", "156")
+        st.metric("🗺️ Saved Trips", len(st.session_state.saved_trips))
     with col3:
-        st.metric("Average Rating", "4.8/5 ⭐")
+        st.metric("⭐ Reviews Written", len(st.session_state.reviews))
     with col4:
-        st.metric("Countries", "23")
-
-# ============================================
-# TAB 7: DASHBOARD
-# ============================================
-with tab7:
-    st.header("📊 Your Personal Sicily Dashboard")
+        st.metric("💬 Feedback Given", len(st.session_state.feedback_data))
     
-    col1, col2 = st.columns([2, 1])
+    st.markdown("<hr>", unsafe_allow_html=True)
     
-    with col1:
-        st.subheader("📌 Your Bookmarks")
-        if st.session_state.bookmarks:
-            for i, bookmark in enumerate(st.session_state.bookmarks, 1):
-                col_a, col_b = st.columns([4, 1])
-                with col_a:
-                    st.markdown(f"{i}. ✓ {bookmark}")
-                with col_b:
-                    if st.button("❌", key=f"remove_{i}"):
-                        st.session_state.bookmarks.remove(bookmark)
-                        st.rerun()
-        else:
-            st.info("No bookmarks yet. Explore the guide and save your favorites!")
+    # Bookmarks Section
+    st.markdown("""
+        <div style='text-align: center; padding: 20px 0;'>
+            <h3 style="color: #e9c46a;">📌 Your Bookmarks</h3>
+        </div>
+        """, unsafe_allow_html=True)
     
-    with col2:
-        st.subheader("📈 Your Activity")
-        st.metric("Bookmarks", len(st.session_state.bookmarks))
-        st.metric("Saved Trips", len(st.session_state.saved_trips))
-        st.metric("Questions Asked", len([f for f in st.session_state.feedback_data if f.get('type') == 'question']))
-    
-    st.markdown("---")
-    
-    # Saved Itineraries
-    st.subheader("🗺️ Your Saved Itineraries")
-    if st.session_state.saved_trips:
-        for i, trip in enumerate(st.session_state.saved_trips, 1):
-            with st.expander(f"Trip {i}: {trip['duration']} days - {trip['style']}"):
+    if st.session_state.bookmarks:
+        # Create columns for better layout
+        for i, bookmark in enumerate(st.session_state.bookmarks):
+            col1, col2 = st.columns([5, 1])
+            
+            with col1:
                 st.markdown(f"""
-                - **Start Point:** {trip['start']}
-                - **Saved On:** {trip['date']}
-                - **Style:** {trip['style']}
-                """)
+                <div class="bookmark-item">
+                    <p style="margin: 0; font-size: 1.05em;">✓ {bookmark}</p>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            with col2:
+                if st.button("🗑️", key=f"remove_bookmark_{i}"):
+                    st.session_state.bookmarks.pop(i)
+                    st.rerun()
+        
+        # Export bookmarks
+        st.markdown("<br>", unsafe_allow_html=True)
+        col1, col2, col3 = st.columns([1, 1, 1])
+        with col2:
+            bookmarks_text = "\n".join([f"• {b}" for b in st.session_state.bookmarks])
+            st.download_button(
+                "📥 Export Bookmarks",
+                bookmarks_text,
+                file_name="sicily_bookmarks.txt",
+                use_container_width=True
+            )
+    else:
+        st.markdown("""
+        <div class="info-card">
+            <p style='text-align: center; font-size: 1.1em;'>
+                No bookmarks yet! 🌟<br>
+                <em>Explore the regions and save your favorite places</em>
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    st.markdown("<hr>", unsafe_allow_html=True)
+    
+    # Saved Trips Section
+    st.markdown("""
+        <div style='text-align: center; padding: 20px 0;'>
+            <h3 style="color: #e9c46a;">🗺️ Your Saved Itineraries</h3>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    if st.session_state.saved_trips:
+        for i, trip in enumerate(st.session_state.saved_trips):
+            with st.expander(f"✈️ {trip['name']}", expanded=False):
+                st.markdown(f"""
+                <div class="content-card">
+                    <h3 style="color: #2a9d8f;">{trip['name']}</h3>
+                    <p><strong>📅 Duration:</strong> {trip['duration']} days</p>
+                    <p><strong>🎨 Style:</strong> {trip['style']}</p>
+                    <p><strong>🛬 Starting from:</strong> {trip['start']}</p>
+                    <p><strong>🎯 Interests:</strong> {', '.join(trip.get('interests', [])) if trip.get('interests') else 'Not specified'}</p>
+                    <p><strong>📅 Created:</strong> {trip['date_created']}</p>
+                </div>
+                """, unsafe_allow_html=True)
                 
                 col1, col2, col3 = st.columns(3)
                 with col1:
-                    if st.button("📧 Email Details", key=f"email_trip_{i}"):
-                        st.success("Itinerary emailed!")
+                    if st.button("📧 Email Details", key=f"email_{i}"):
+                        st.success("📧 Itinerary sent to your email!")
                 with col2:
-                    if st.button("📄 Download PDF", key=f"pdf_trip_{i}"):
-                        st.info("PDF download starting...")
+                    if st.button("📄 View Full Plan", key=f"view_{i}"):
+                        st.info("Full itinerary displayed above!")
                 with col3:
-                    if st.button("🗑️ Delete", key=f"delete_trip_{i}"):
-                        st.session_state.saved_trips.pop(i-1)
+                    if st.button("🗑️ Delete", key=f"delete_{i}"):
+                        st.session_state.saved_trips.pop(i)
+                        st.success("Trip deleted")
                         st.rerun()
     else:
-        st.info("No saved itineraries. Create one in the 'Plan Your Trip' tab!")
+        st.markdown("""
+        <div class="info-card">
+            <p style='text-align: center; font-size: 1.1em;'>
+                No saved trips yet! ✈️<br>
+                <em>Use the Trip Builder to create your perfect itinerary</em>
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
     
-    st.markdown("---")
+    st.markdown("<hr>", unsafe_allow_html=True)
     
-    # Export All Data
-    st.subheader("💾 Export Your Data")
+    # Reviews Section
+    st.markdown("""
+        <div style='text-align: center; padding: 20px 0;'>
+            <h3 style="color: #e9c46a;">⭐ Your Reviews</h3>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    if st.session_state.reviews:
+        for review in st.session_state.reviews:
+            stars = "⭐" * review['rating']
+            st.markdown(f"""
+            <div class="review-card">
+                <h4 style="color: #e9c46a;">{review['place']} {stars}</h4>
+                <p style="color: #fefae0;"><em>"{review['review']}"</em></p>
+                <p style="color: #e9c46a; font-size: 0.9em;">Posted on {review['date']}</p>
+            </div>
+            """, unsafe_allow_html=True)
+    else:
+        st.markdown("""
+        <div class="info-card">
+            <p style='text-align: center; font-size: 1.1em;'>
+                No reviews yet! 🌟<br>
+                <em>Share your experiences in the Community tab</em>
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    st.markdown("<hr>", unsafe_allow_html=True)
+    
+    # Account Actions
+    st.markdown("""
+        <div style='text-align: center; padding: 20px 0;'>
+            <h3 style="color: #e9c46a;">⚙️ Account Actions</h3>
+        </div>
+        """, unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        if st.button("📥 Download All Bookmarks", use_container_width=True):
-            bookmarks_text = "\n".join([f"• {b}" for b in st.session_state.bookmarks])
+        if st.button("📥 Export All Data", use_container_width=True):
+            all_data = {
+                'bookmarks': st.session_state.bookmarks,
+                'trips': st.session_state.saved_trips,
+                'reviews': [r for r in st.session_state.reviews],
+                'export_date': datetime.now().strftime("%Y-%m-%d %H:%M")
+            }
             st.download_button(
-                "Download TXT",
-                bookmarks_text,
-                file_name="sicily_bookmarks.txt"
+                "Download JSON",
+                json.dumps(all_data, indent=2, default=str),
+                file_name=f"sicily_data_{datetime.now().strftime('%Y%m%d')}.json",
+                mime="application/json"
             )
     
     with col2:
-        if st.button("📥 Download Itineraries", use_container_width=True):
-            st.info("PDF generation in progress...")
+        if st.button("🔄 Refresh Dashboard", use_container_width=True):
+            st.rerun()
     
     with col3:
-        if st.button("🗑️ Clear All Data", use_container_width=True):
-            if st.checkbox("Are you sure?"):
-                st.session_state.bookmarks = set()
+        if st.button("🗑️ Clear All Data", use_container_width=True, type="secondary"):
+            if st.checkbox("⚠️ Are you sure? This cannot be undone"):
+                st.session_state.bookmarks = []
                 st.session_state.saved_trips = []
+                st.session_state.reviews = []
+                st.session_state.feedback_data = []
                 st.success("All data cleared!")
                 st.rerun()
 
-# --- INTERACTIVE MAP SECTION (below tabs) ---
-st.markdown("---")
-st.header("🗺️ Interactive Sicily Map")
-st.markdown("*Explore all regions visually*")
+# --- INTERACTIVE MAP ---
+st.markdown("<hr>", unsafe_allow_html=True)
+st.markdown("""
+    <div style='text-align: center; padding: 30px 0;'>
+        <h2>🗺️ Interactive Sicily Map</h2>
+        <p style='font-size: 1.2em; color: #e9c46a;'>Explore all regions at a glance</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-# Create detailed map data
 map_data = pd.DataFrame([
     {
         "lat": d["lat"], 
         "lon": d["lon"], 
         "name": k,
-        "size": 100
+        "size": 200
     } 
     for k, d in destinations.items()
 ])
 
 st.map(map_data, size='size')
 
-# Map legend
 st.markdown("""
-**Map Guide:**
-- 🔵 **Blue markers** = Major regions covered in this guide
-- Click 'Open in maps' to get directions
-- Best viewed on desktop for full interactivity
-""")
-
-# --- FOOTER ---
-st.markdown("---")
-
-footer_col1, footer_col2, footer_col3 = st.columns(3)
-
-with footer_col1:
-    st.markdown("""
-    ### 📚 Resources
-    - [Sicily Tourism Official](https://www.visitsicily.info)
-    - [Trenitalia (Trains)](https://www.trenitalia.com)
-    - [Sicily Weather](https://www.meteo.it)
-    """)
-
-with footer_col2:
-    st.markdown("""
-    ### 🔗 Connect
-    - Share this guide with friends
-    - Follow us for updates
-    - Join our Sicily travelers group
-    """)
-
-with footer_col3:
-    st.markdown("""
-    ### ℹ️ About
-    - Last Updated: January 2026
-    - Version 2.0
-    - Made with ❤️ in Sicily
-    """)
-
-st.markdown("---")
-st.markdown("""
-<p style='text-align: center; color: #FFD700;'>
-    <strong>🏺 Sicily Insider Guide</strong><br>
-    For private use within our international network<br>
-    <em>Benvenuti in Sicilia — Welcome to the soul of the Mediterranean</em>
-</p>
+<div class="info-card">
+    <p style='text-align: center;'>
+        🔵 <strong>Blue markers</strong> represent major regions covered in this guide<br>
+        Click markers for more details • Best viewed on desktop
+    </p>
+</div>
 """, unsafe_allow_html=True)
 
-# Version info
+# --- ELEGANT FOOTER ---
+st.markdown("<hr>", unsafe_allow_html=True)
+
 st.markdown("""
-<p style='text-align: center; font-size: 0.8em; color: #888;'>
-    v2.0.0 | Comprehensive Edition | © 2026
-</p>
+    <div style='text-align: center; padding: 40px 20px;'>
+        <div class='decorative-icon'>🏺</div>
+        <h2 style='color: #e9c46a; margin: 20px 0;'>Sicilia Autentica</h2>
+        <p style='font-size: 1.1em; color: #fefae0; margin: 15px 0;'>
+            Made with ❤️ and passion for Sicily<br>
+            <em>Benvenuti in Sicilia — Where every stone tells a story</em>
+        </p>
+        <br>
+        <p style='color: #e9c46a; font-size: 0.9em;'>
+            Last Updated: January 2026 • Version 2.0 • Premium Edition
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("""
+<div style='text-align: center; padding: 20px;'>
+    <p style='color: rgba(254, 250, 224, 0.6); font-size: 0.85em;'>
+        © 2026 Sicilia Autentica • For private use within our network<br>
+        Contact: info@siciliaautentica.com
+    </p>
+</div>
 """, unsafe_allow_html=True)
