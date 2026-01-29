@@ -2,137 +2,134 @@ import streamlit as st
 import pandas as pd
 
 # Page Config
-st.set_page_config(page_title="Sicily: The Complete Insider", page_icon="🍋", layout="wide")
+st.set_page_config(page_title="Sicily Insider", page_icon="🏺", layout="wide")
 
-# Custom CSS for the "Noto Stone" & Majolica Aesthetic
+# --- CUSTOM CSS: MAJOLICA DARK THEME ---
 st.markdown("""
     <style>
-    /* Background set to Noto Stone / Cream */
+    /* Main Background: Deep Mediterranean Blue */
     .stApp {
-        background-color: #FDF5E6;
+        background-color: #002B5B;
+        color: #FDF5E6;
     }
-    .main {
-        background-color: #FDF5E6;
-    }
-    /* Sicilian Header with Gradient */
-    .stHeader {
-        background: linear-gradient(135deg, #005DAA 0%, #D32F2F 50%, #FFD700 100%);
-        padding: 40px;
+    
+    /* High-Contrast Content Cards */
+    .content-card {
+        background-color: #FDF5E6; /* Noto Stone Cream */
+        color: #1A1A1A;
+        padding: 25px;
         border-radius: 15px;
+        border-left: 10px solid #D32F2F; /* Lava Red */
+        margin-bottom: 20px;
+    }
+    
+    /* Headers with Sicilian Gold */
+    h1, h2, h3 {
+        color: #FFD700 !format;
+        font-family: 'Serif';
+    }
+    
+    /* Sidebar styling */
+    section[data-testid="stSidebar"] {
+        background-color: #001F3F;
+    }
+    
+    /* Buttons */
+    .stButton>button {
+        background-color: #D32F2F;
         color: white;
-        text-align: center;
-        border-bottom: 10px solid #D32F2F;
-        margin-bottom: 25px;
-    }
-    .tile-card {
-        background-color: #ffffff;
-        padding: 20px;
-        border-radius: 8px;
-        border-top: 5px solid #005DAA;
-        border-bottom: 5px solid #FFD700;
-        box-shadow: 4px 4px 15px rgba(0,0,0,0.05);
-    }
-    .human-touch {
-        font-style: italic;
-        color: #D32F2F;
-        font-weight: 500;
-        margin-top: 10px;
+        border-radius: 20px;
+        border: 2px solid #FFD700;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# --- THE EXPANDED DATABASE ---
+# --- DATA ---
 destinations = {
     "Palermo & The West": {
-        "description": "A glorious chaos of Arab-Norman history and the best street food in Europe.",
-        "human_tip": "If you go to the Ballarò market, don't just look—eat. Accept the small samples from vendors; it's how we welcome you.",
-        "beaches": ["Mondello (Go early!)", "Riserva dello Zingaro (Hidden coves)", "San Vito Lo Capo"],
-        "food_spots": "Nni Franco U'Vastiddaru (Street food), I Segreti del Chiostro (Cannoli)",
+        "tagline": "The Arab-Norman Capital",
+        "human_tip": "Look up at the ceilings of the Palatine Chapel. The golden mosaics aren't just art; they represent the light of three civilizations meeting.",
+        "beaches": ["Mondello", "Riserva dello Zingaro", "San Vito Lo Capo"],
+        "food": ["Panelle at Ballarò", "Cannoli at Santa Caterina"],
         "lat": 38.1157, "lon": 13.3615
     },
-    "Catania & Mt. Etna": {
-        "description": "Built from the very lava that once threatened it, Catania is gritty, baroque, and resilient.",
-        "human_tip": "When visiting Etna, respect 'A Muntagna'. She isn't just a volcano to us; she is a living presence.",
-        "beaches": ["San Giovanni Li Cuti (Black volcanic sand)", "Aci Trezza (The Cyclops Riviera)"],
-        "food_spots": "Savia (Arancini), Osteria Antica Marina (Fish market dining)",
-        "lat": 37.5027, "lon": 15.0873
-    },
-    "Siracusa & Ortigia": {
-        "description": "White limestone buildings floating on the sea. The light here is different than anywhere else.",
-        "human_tip": "Sit in Piazza Duomo at sunset. The stone turns a warm honey color. It’s the perfect time for a 'Caffè Shakerato'.",
-        "beaches": ["Fontane Bianche", "Cala Mosche (Inside Vendicari)"],
-        "food_spots": "Caseificio Borderi (Legendary sandwiches), Cortile di Bacco",
+    "Siracusa & The Baroque": {
+        "tagline": "The White Soul of the Sea",
+        "human_tip": "When in Ortigia, buy a sandwich at Borderi. Don't look at the menu; let Gaetano build a masterpiece for you based on his mood.",
+        "beaches": ["Fontane Bianche", "Calamosche", "Vendicari"],
+        "food": ["Pistachio everything in Noto", "Fresh Tuna in Marzamemi"],
         "lat": 37.0755, "lon": 15.2866
     },
-    "Agrigento & The South": {
-        "description": "Home to the Valley of the Temples, where Ancient Greece still feels alive.",
-        "human_tip": "Go to the temples at night. Seeing the Concordia Temple illuminated under the stars is a spiritual experience.",
-        "beaches": ["Scala dei Turchi (White cliffs)", "Siculiana Marina"],
-        "food_spots": "Terracotta (Local ingredients), La Terrazza degli Dei",
-        "lat": 37.3107, "lon": 13.5765
+    "Etna & The East": {
+        "tagline": "Fire and Volcanic Wines",
+        "human_tip": "Visit a winery on the north slope of Etna. The 'Nerello Mascalese' grapes grow in volcanic ash, giving the wine a smoky taste of the earth.",
+        "beaches": ["Isola Bella", "San Giovanni Li Cuti"],
+        "food": ["Granita at Bam Bar", "Arancino at Savia"],
+        "lat": 37.5027, "lon": 15.0873
     }
 }
 
-itineraries = {
-    "3-Day Express": "Focus on either Palermo OR Catania. Don't try to do both, or you'll spend your whole trip in a car.",
-    "7-Day Loop": "Palermo → Cefalù → Taormina → Catania/Etna. A classic 'Grand Tour' of the north and east.",
-    "10-Day Deep Dive": "The full island. Start in Palermo, head west to Trapani, south to Agrigento, then east to Noto and Siracusa."
-}
+# --- HEADER SECTION ---
+st.title("🏺 Sicilia: An Insider's Love Letter")
+st.markdown("### A curated portal for my international network.")
+st.divider()
 
-# --- UI DISPLAY ---
-st.markdown('<div class="stHeader"><h1>Sicily Insider Guide</h1><p>Curated for my International Network</p></div>', unsafe_allow_html=True)
+# --- INTERACTIVE MAP ---
+st.subheader("📍 Mapping the Magic")
+map_data = pd.DataFrame([{"lat": d["lat"], "lon": d["lon"], "name": k} for k, d in destinations.items()])
+st.map(map_data)
 
-tab1, tab2, tab3, tab4 = st.tabs(["🗺️ Interactive Map", "📜 Suggested Itineraries", "🍋 Regional Secrets", "🏺 Cultural Rituals"])
+# --- MAIN NAVIGATION ---
+tab1, tab2, tab3 = st.tabs(["🏛️ Deep Guide", "🧭 Itineraries", "💬 Your Feedback"])
 
 with tab1:
-    st.subheader("Explore the Island")
-    # Mapping logic
-    map_df = pd.DataFrame([{"lat": d["lat"], "lon": d["lon"], "name": k} for k, d in destinations.items()])
-    st.map(map_df, zoom=7)
-    st.caption("Click and scroll to see where the magic happens.")
-
-with tab2:
-    st.subheader("How long are you staying?")
-    for duration, plan in itineraries.items():
-        with st.expander(f"📅 {duration}"):
-            st.write(plan)
-            st.info("Pro Tip: Rent a small car. Our 'highways' are fine, but city streets are narrow!")
-
-with tab3:
-    region = st.selectbox("Choose a region:", list(destinations.keys()))
+    region = st.selectbox("Where are we heading?", list(destinations.keys()))
     res = destinations[region]
     
-    col1, col2 = st.columns([1.5, 1])
+    # Using the Content Card for readability
+    st.markdown(f"""
+    <div class="content-card">
+        <h2 style="color: #002B5B;">{region}</h2>
+        <p><strong>{res['tagline']}</strong></p>
+        <p style="font-style: italic; border-left: 3px solid #FFD700; padding-left: 10px;">"{res['human_tip']}"</p>
+        <hr>
+        <div style="display: flex; justify-content: space-between;">
+            <div>
+                <h4>🏖️ Beaches</h4>
+                <ul>{" ".join([f"<li>{b}</li>" for b in res['beaches']])}</ul>
+            </div>
+            <div>
+                <h4>🍴 Food Spots</h4>
+                <ul>{" ".join([f"<li>{f}</li>" for f in res['food']])}</ul>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with tab2:
+    st.subheader("📅 Curated Paths")
+    col1, col2 = st.columns(2)
+    
     with col1:
-        st.markdown(f"### {region}")
-        st.write(res["description"])
-        st.markdown(f'<p class="human-touch">"{res["human_tip"]}"</p>', unsafe_allow_html=True)
-        
-        st.markdown("#### 🍝 Local Food Spots")
-        st.success(res["food_spots"])
-        
+        st.info("**The 5-Day East Coast Loop**\nCatania (Etna) -> Taormina -> Siracusa -> Noto.")
     with col2:
-        st.markdown("#### 🏖️ Top Beaches")
-        for beach in res["beaches"]:
-            st.write(f"🔹 {beach}")
+        st.info("**The 5-Day West Coast Charm**\nPalermo -> Cefalù -> Erice -> San Vito Lo Capo.")
 
-with tab4:
-    st.subheader("Living the Sicilian Life")
-    c1, c2 = st.columns(2)
-    with c1:
-        st.markdown("""
-        **The Coffee Rules:**
-        - No Cappuccino after 11:00 AM.
-        - Drink your espresso standing up for the 'local price'.
-        - 'Caffè Freddo' is your best friend in July.
-        """)
-    with c2:
-        st.markdown("""
-        **The Riposo:**
-        - From 13:30 to 16:30, the island sleeps.
-        - Don't expect to find shops open in small towns.
-        - It's the perfect time for a long lunch or a nap.
-        """)
 
+
+with tab3:
+    st.subheader("📮 Help me improve this guide!")
+    with st.form("feedback_form"):
+        name = st.text_input("Your Name")
+        rating = st.slider("How helpful is this guide?", 1, 5, 5)
+        comment = st.text_area("What city should I add next?")
+        
+        submitted = st.form_submit_button("Send Feedback")
+        if submitted:
+            st.success(f"Grazie, {name}! Your feedback makes this guide better.")
+            # In a real app, you'd save this to a file or database
+            st.balloons()
+
+# --- FOOTER ---
 st.divider()
-st.caption("Designed with the colors of Noto and the spirit of the Mediterranean.")
+st.markdown("<p style='text-align: center;'>Made with ❤️ in Sicily. For private use within our network.</p>", unsafe_allow_html=True)
