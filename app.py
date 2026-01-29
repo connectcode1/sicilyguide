@@ -58,7 +58,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- DATA: MERGED DESCRIPTIONS + DETAILED LISTS ---
+# --- DATA: MERGED (Original Data + New Tags/Descriptions) ---
 destinations = {
     "Palermo & Western Sicily": {
         "tagline": "Where Arab Domes Meet Norman Grandeur",
@@ -83,7 +83,8 @@ destinations = {
             "Monreale Mosaics": "Golden mosaics covering 6,400 square meters of biblical storytelling.",
             "Salt Pans of Trapani": "Sunset over ancient windmills and pink salt mountains."
         },
-        "lat": 38.1157, "lon": 13.3615, "days": "4-5 days"
+        "lat": 38.1157, "lon": 13.3615, "days": "4-5 days",
+        "best_time": "April-June, Sept-Oct"
     },
     
     "Taormina, Messina & The Northeast": {
@@ -109,7 +110,8 @@ destinations = {
             "Messina Clock Tower": "Astronomical clock at noon triggers a mechanical show.",
             "Godfather Tour": "Visit Bar Vitelli in Savoca for a lemon granita."
         },
-        "lat": 37.8526, "lon": 15.2876, "days": "3-4 days"
+        "lat": 37.8526, "lon": 15.2876, "days": "3-4 days",
+        "best_time": "May-June, Sept-Oct"
     },
     
     "Aeolian Islands": {
@@ -135,7 +137,8 @@ destinations = {
             "Boat Tour": "Full-day excursion visiting multiple islands and hidden grottos.",
             "Malvasia Tasting": "Sweet wine made from grapes dried on volcanic terraces."
         },
-        "lat": 38.5667, "lon": 14.9564, "days": "5-7 days"
+        "lat": 38.5667, "lon": 14.9564, "days": "5-7 days",
+        "best_time": "May-June, September"
     },
     
     "Catania, Etna & The East": {
@@ -161,7 +164,8 @@ destinations = {
             "Catania Fish Market": "A Pescheria at dawn—tuna, swordfish, and controlled chaos.",
             "Etna Wine Tour": "Visit boutique wineries at 800-1000m elevation."
         },
-        "lat": 37.5079, "lon": 15.0830, "days": "3-4 days"
+        "lat": 37.5079, "lon": 15.0830, "days": "3-4 days",
+        "best_time": "April-June, Oct-Nov"
     },
     
     "Syracuse & The Baroque Southeast": {
@@ -187,7 +191,8 @@ destinations = {
             "Noto by Night": "Baroque facades illuminated—architectural masterpiece.",
             "Modica Chocolate Tour": "Aztec-style grainy chocolate, workshops available."
         },
-        "lat": 37.0755, "lon": 15.2866, "days": "4-5 days"
+        "lat": 37.0755, "lon": 15.2866, "days": "4-5 days",
+        "best_time": "May-June, Sept"
     }
 }
 
@@ -200,7 +205,7 @@ st.markdown("""
     </div>
     """, unsafe_allow_html=True)
 
-# --- CLEANED SIDEBAR ---
+# --- CLEANED SIDEBAR (No Dashboard) ---
 with st.sidebar:
     st.markdown("#### THE INSIDER")
     st.info("Explore the island through local eyes. Select a tab to begin your journey.")
@@ -243,6 +248,7 @@ with tab1:
     with col2:
         st.markdown("### Quick Facts")
         st.write(f"**Stay:** {region['days']}")
+        st.write(f"**Best Time:** {region['best_time']}")
         st.write("**Best For:** " + ", ".join(region['tags']))
     
     st.markdown("---")
@@ -279,130 +285,4 @@ with tab1:
             st.markdown(f"- {item}")
 
 # ============================================
-# TAB 2: INSTANT ITINERARY GENERATOR
-# ============================================
-with tab2:
-    st.markdown("""
-        <div class="section-header">
-            <h2>Instant Itinerary Generator</h2>
-            <p>Select your interests, and we will build a custom route for you instantly.</p>
-        </div>
-    """, unsafe_allow_html=True)
-    
-    # Input Section
-    with st.container():
-        col1, col2 = st.columns([1, 2])
-        with col1:
-            days = st.slider("Trip Duration (Days)", 3, 14, 7)
-            pace = st.radio("Travel Pace", ["Relaxed", "Moderate", "Fast-Paced"])
-        with col2:
-            all_interests = ["History", "Food", "Beaches", "Volcanoes", "Luxury", "Nature", "Wine", "Culture"]
-            user_interests = st.multiselect("What are you interested in?", all_interests, default=["Food", "Beaches"])
-    
-    st.markdown("---")
-    
-    # Generator Logic
-    if user_interests:
-        st.subheader(f"Your {days}-Day Custom Journey")
-        
-        # Scoring Logic
-        scored_regions = []
-        for name, data in destinations.items():
-            score = 0
-            for interest in user_interests:
-                if interest in data['tags']:
-                    score += 1
-            if score > 0:
-                scored_regions.append((name, score, data))
-        
-        scored_regions.sort(key=lambda x: x[1], reverse=True)
-        
-        if not scored_regions:
-            st.warning("No perfect matches found. Try selecting different interests (e.g., History or Food).")
-        else:
-            # Display the Route
-            stops = 3 if days > 6 else 2
-            for i, (r_name, r_score, r_data) in enumerate(scored_regions[:stops]): 
-                st.markdown(f"""
-                    <div class="itinerary-stop">
-                        <h3 style="margin-top:0; color:#C85A54;">Stop {i+1}: {r_name}</h3>
-                        <p><strong>Why this fits you:</strong> Matches your interest in {', '.join([t for t in user_interests if t in r_data['tags']])}.</p>
-                        <p>{r_data['tagline']}</p>
-                        <p><strong>Don't Miss:</strong> {r_data['experiences'][list(r_data['experiences'].keys())[0]]}</p>
-                    </div>
-                """, unsafe_allow_html=True)
-            
-            st.info(f"💡 **Trip Logic:** Based on a {pace.lower()} pace, we recommend spending {int(days/stops)} days in each location.")
-            
-    else:
-        st.info("👈 Please select at least one interest to generate your itinerary.")
-
-# ============================================
-# TAB 3: INSIDER TIPS (Restored Full Info)
-# ============================================
-with tab3:
-    st.markdown("## Essential Travel Wisdom")
-    
-    # --- RESTORED VOCABULARY ---
-    st.markdown("### 🗣️ Basic Vocabulary")
-    st.write("Sicilians appreciate effort. Use these phrases to unlock smiles.")
-    
-    phrases = {
-        "Buongiorno / Buonasera": "Good morning / Good evening",
-        "Per favore": "Please",
-        "Grazie mille": "Thank you very much",
-        "Il conto, per favore": "The bill, please",
-        "Dov'è...?": "Where is...?",
-        "Un caffè, per favore": "One coffee, please"
-    }
-    
-    v_col1, v_col2 = st.columns(2)
-    items = list(phrases.items())
-    half = len(items)//2
-    
-    with v_col1:
-        for it, en in items[:half]:
-            st.markdown(f"**{it}** — *{en}*")
-    with v_col2:
-        for it, en in items[half:]:
-            st.markdown(f"**{it}** — *{en}*")
-            
-    st.markdown("---")
-
-    # --- RESTORED TRANSPORT & BUDGET ---
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.markdown("""
-        <div class="feature-card">
-            <h4>🚄 Getting Around</h4>
-            <p><strong>Car Rental:</strong> Essential for countryside, wine regions, and beach hopping. <br><em>Tip: Book an automatic in advance.</em></p>
-            <p><strong>Trains:</strong> Reliable only for the coast (Palermo-Messina-Catania-Syracuse).</p>
-            <p><strong>Ferries:</strong> Depart from Milazzo for Aeolian Islands and Trapani for Egadi Islands.</p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-    with col2:
-        st.markdown("""
-        <div class="feature-card">
-            <h4>💶 Budget & Money</h4>
-            <p><strong>Cash is King:</strong> Small trattorias and markets often prefer cash.</p>
-            <p><strong>Budget (€80/day):</strong> B&Bs, street food, public transport.</p>
-            <p><strong>Mid-Range (€150/day):</strong> Boutique hotels, sit-down dinners, car rental.</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-    st.markdown("---")
-    
-    # --- RESTORED WHEN TO VISIT ---
-    st.markdown("### 📅 When to Visit")
-    st.markdown("""
-    * **Peak Season (July-August):** Hot (35°C+), crowded, expensive. Best for pure beach holidays.
-    * **Shoulder Season (April-June, Sept-Oct):** Perfect weather (20-25°C), lower prices, swimmable sea. **(Recommended)**
-    * **Winter (Nov-March):** Mild, green, authentic. Great for archaeology and food, but beach towns will be quiet.
-    """)
-
-# --- MAP ---
-st.markdown("---")
-map_data = pd.DataFrame([{"lat": d["lat"], "lon": d["lon"], "name": k} for k, d in destinations.items()])
-st.map(map_data)
+# TAB 2: INSTANT ITINERARY GENER
